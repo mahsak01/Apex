@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Apex</string>
+    <string name="invoice">فاکتور</string>
+    <string name="cheque">چک</string>
+    <string name="search">جستجو کنید ....</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
