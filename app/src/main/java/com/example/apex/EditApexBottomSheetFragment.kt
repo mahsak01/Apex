@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
+import com.example.apex.common.ModePage
+import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.FragmentBottomSheetEditApexBinding
@@ -23,9 +26,22 @@ class EditApexBottomSheetFragment(private val apexListHeader: ApexListHeader):Bo
     override fun onResume() {
         super.onResume()
         setInformation()
+        addListener()
     }
 
-    fun setInformation(){
+    fun addListener(){
+        binding.fragmentBottomSheetEditApexEditPageBtn.setOnClickListener {
+            dismiss()
+            this.findNavController()
+                .navigate(
+                    InvoiceFragmentDirections.actionInvoiceFragmentToAddApexListInvoiceFragment(
+                       ModePage.EDIT ,NamePage.INVOICE,apexListHeader
+                    )
+                )
+        }
+    }
+
+    private fun setInformation(){
         binding.fragmentBottomSheetEditApexApexListHeaderNameTv.text=apexListHeader.name
         binding.fragmentBottomSheetEditApexApexListHeaderAccountNameTv.text="طرف حساب: "+apexListHeader.accountName
         binding.fragmentBottomSheetEditApexApexListHeaderPriceTv.text=apexListHeader.totalPrice.toString()+" ریال"

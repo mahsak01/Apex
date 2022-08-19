@@ -30,5 +30,17 @@
     <fragment
         android:id="@+id/addApexListInvoiceFragment"
         android:name="com.example.apex.AddApexListInvoiceFragment"
-        android:label="AddApexListInvoiceFragment" />
+        android:label="AddApexListInvoiceFragment" >
+        <argument
+            android:name="modePage"
+            app:argType="com.example.apex.common.ModePage"/>
+        <argument
+            android:name="namePage"
+            app:argType="com.example.apex.common.NamePage" />
+        <argument
+            android:name="apexListHeader"
+            app:argType="com.example.apex.data.model.ApexListHeader"
+            app:nullable="true" />
+
+    </fragment>
 </navigation>

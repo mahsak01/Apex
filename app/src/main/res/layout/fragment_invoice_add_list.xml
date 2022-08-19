@@ -32,7 +32,9 @@
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
 
+
                     <TextView
+                        android:id="@+id/fragmentInvoiceAddList_appBarText"
                         style="?textAppearanceHeadline6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -178,13 +180,13 @@
                         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@id/fragmentInvoiceAddList_priceAndNumberCL"
+                        android:id="@+id/fragmentInvoiceAddList_priceAndNumberCL"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone">
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/fragmentInvoiceAddList_sumApexListHeaderTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -208,10 +210,9 @@
                             android:weightSum="3"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView2">
+                            app:layout_constraintTop_toBottomOf="@+id/fragmentInvoiceAddList_sumApexListHeaderTv">
 
                             <FrameLayout
-                                android:id="@+id/frameLayout2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -224,6 +225,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                                 <TextView
+                                    android:id="@+id/fragmentInvoiceAddList_PriceTv"
                                     android:layout_width="203dp"
                                     android:layout_height="wrap_content"
                                     android:text="10000ریال"
@@ -257,6 +259,7 @@
                                 app:layout_constraintTop_toTopOf="@+id/frameLayout2">
 
                                 <TextView
+                                    android:id="@+id/fragmentInvoiceAddList_NumberTv"
                                     android:layout_width="84dp"
                                     android:layout_height="wrap_content"
                                     android:text="1 مورد"
@@ -280,14 +283,14 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/fragmentInvoiceAddList_dateApexListHeaderTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:drawableStart="@drawable/ic_baseline_today_24"
                         android:drawablePadding="10dp"
-                        android:text="تاریخ راس فاکتور"
+                        tools:text="تاریخ راس فاکتور"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -348,6 +351,7 @@
                             tools:ignore="MissingConstraints">
 
                             <TextView
+                                android:id="@+id/fragmentInvoiceAddList_dateTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end"

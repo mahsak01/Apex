@@ -5,15 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavGraph
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavGraphNavigator
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.apex.common.ModePage
+import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.FragmentInvoiceBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class InvoiceFragment : Fragment(),InvoiceItemAdapter.EventListener {
+class InvoiceFragment : Fragment(), InvoiceItemAdapter.EventListener {
     private lateinit var binding: FragmentInvoiceBinding
     private val viewModel: ApexViewModel by viewModel()
     private var adapter: InvoiceItemAdapter? = null
@@ -55,8 +62,14 @@ class InvoiceFragment : Fragment(),InvoiceItemAdapter.EventListener {
             this.requireActivity().onBackPressed()
         }
         binding.fragmentInvoiceAddInvoiceBtn.setOnClickListener {
+
+
             this.findNavController()
-                .navigate(R.id.action_invoiceFragment_to_addApexListInvoiceFragment)
+                .navigate(
+                    InvoiceFragmentDirections.actionInvoiceFragmentToAddApexListInvoiceFragment(
+                        ModePage.NEW,NamePage.INVOICE,null
+                    )
+                )
 
         }
     }
@@ -68,7 +81,7 @@ class InvoiceFragment : Fragment(),InvoiceItemAdapter.EventListener {
                 binding.fragmentInvoiceInvoiceListRv.visibility = View.VISIBLE
                 binding.fragmentInvoiceInvoiceListRv.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = InvoiceItemAdapter(it as ArrayList<ApexListHeader>,this)
+                adapter = InvoiceItemAdapter(it as ArrayList<ApexListHeader>, this)
                 binding.fragmentInvoiceInvoiceListRv.adapter = adapter
                 binding.fragmentChequeEmptyLayout.root.visibility = View.GONE
             } else {
@@ -78,7 +91,6 @@ class InvoiceFragment : Fragment(),InvoiceItemAdapter.EventListener {
             }
         }
     }
-
 
 
     override fun onCreateView(

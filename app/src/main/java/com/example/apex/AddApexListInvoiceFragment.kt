@@ -1,22 +1,25 @@
 package com.example.apex
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.apex.common.ModePage
 import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.FragmentInvoiceAddListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddApexListInvoiceFragment(private val modePage: ModePage, private val namePage: NamePage) :
+class AddApexListInvoiceFragment() :
     Fragment(), DayDialogFragment.EventListener {
     private lateinit var binding: FragmentInvoiceAddListBinding
     private val viewModel: ApexViewModel by viewModel()
     private var apexDay: Int? = null
+    private val args: AddApexListInvoiceFragmentArgs by navArgs()
 
     override fun onResume() {
         super.onResume()
@@ -25,10 +28,30 @@ class AddApexListInvoiceFragment(private val modePage: ModePage, private val nam
     }
 
     private fun setInformation() {
-
-        if (modePage == ModePage.EDIT)
+        binding.fragmentInvoiceAddListAppBarText.text = "گروه " + args.namePage.getValue()
+        binding.fragmentInvoiceAddListAccountApexListNameTI.hint =
+            "نام گروه " + args.namePage.getValue()
+        binding.fragmentInvoiceAddListSumApexListHeaderTv.hint =
+            "جمع " + args.namePage.getValue() + " ها"
+        binding.fragmentInvoiceAddListDateApexListHeaderTv.text =
+            "تاریخ راس " + args.namePage.getValue()
+        if (args.modePage == ModePage.EDIT) {
             binding.fragmentInvoiceAddListPriceAndNumberCL.visibility = View.VISIBLE
-        else
+            binding.fragmentInvoiceAddListInvoiceApexListNameTI.editText?.text =
+                Editable.Factory.getInstance().newEditable(args.apexListHeader?.name)
+            binding.fragmentInvoiceAddListAccountApexListNameTI.editText?.text =
+                Editable.Factory.getInstance().newEditable(args.apexListHeader?.accountName)
+            binding.fragmentInvoiceAddListPercentTv.text =
+                "%" + args.apexListHeader?.percent.toString()
+            binding.fragmentInvoiceAddListNumberTv.text =
+                args.apexListHeader?.numberItem.toString() + " مورد"
+            binding.fragmentInvoiceAddListPriceTv.text =
+                args.apexListHeader?.totalPrice.toString() + " ریال"
+            binding.fragmentInvoiceAddListDayTv.text = args.apexListHeader?.apexDay.toString()
+            binding.fragmentInvoiceAddListDateTv.text = args.apexListHeader?.date
+            binding.fragmentInvoiceAddListDescriptionTI.editText?.text =
+                Editable.Factory.getInstance().newEditable(args.apexListHeader?.description)
+        } else
             binding.fragmentInvoiceAddListPriceAndNumberCL.visibility = View.GONE
     }
 
