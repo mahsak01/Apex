@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layoutInvoiceItem_apexListHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:layoutDirection="rtl"
+        app:cardCornerRadius="8dp"
+
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/layoutInvoiceItem_apexListHeaderNameTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="گروه فاکتور : گروه فاکتور اول"
+                app:layout_constraintEnd_toStartOf="@+id/lottieAnimationView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView2"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderNameTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layoutInvoiceItem_apexListHeaderNameTv"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/animation_delete"
+                app:lottie_speed="1"
+                tools:ignore="MissingConstraints" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView3"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderNameTv"
+                app:layout_constraintEnd_toStartOf="@+id/lottieAnimationView2"
+                app:layout_constraintTop_toTopOf="@+id/layoutInvoiceItem_apexListHeaderNameTv"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/animation_edit"
+                app:lottie_speed="1"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/layoutInvoiceItem_apexListHeaderDateTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="تاریخ راس فاکتور : 23 / 6 / 1401"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/layoutInvoiceItem_apexListHeaderNameTv"
+                app:layout_constraintTop_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderNameTv" />
+
+            <TextView
+                android:id="@+id/layoutInvoiceItem_apexListHeaderTotalPriceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="مبلغ کل : 24,000,000 ریال"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/layoutInvoiceItem_apexListHeaderNumberInvoiceTv"
+                app:layout_constraintStart_toStartOf="@+id/layoutInvoiceItem_apexListHeaderDateTv"
+                app:layout_constraintTop_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderDateTv" />
+
+            <TextView
+                android:id="@+id/layoutInvoiceItem_apexListHeaderNumberInvoiceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="تعداد فاکتور ها : 3 مورد"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderTotalPriceTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layoutInvoiceItem_apexListHeaderTotalPriceTv" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

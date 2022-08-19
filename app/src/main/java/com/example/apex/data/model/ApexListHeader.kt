@@ -3,6 +3,7 @@ package com.example.apex.data.model
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.math.BigInteger
@@ -23,8 +24,10 @@ data class ApexListHeader(
     val totalPrice: Int,
     @ColumnInfo(name = "is_invoice")
     var isInvoice: Boolean,
+    @ColumnInfo(name = "number_item")
+    var numberItem: Int,
     val description:String
 ) : Parcelable {
-
-
+    @Ignore
+    var isShowMenu:Boolean = false
 }

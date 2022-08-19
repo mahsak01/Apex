@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +24,7 @@
                     android:layout_height="56dp">
 
                     <ImageView
-                        android:id="@+id/fragmentCheque_backBtn"
+                        android:id="@+id/fragmentInvoiceAddList_backBtn"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="end|center_vertical"
@@ -57,11 +53,11 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <ScrollView
-                android:paddingBottom="60dp"
                 android:id="@+id/scrollView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
+                android:paddingBottom="60dp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="-2dp">
@@ -72,7 +68,7 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/fragmentInvoiceAddList_invoiceNameTI"
+                        android:id="@+id/fragmentInvoiceAddList_invoiceApexListNameTI"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -85,11 +81,13 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_vertical_split_24"
+                            android:drawablePadding="5dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/fragmentInvoiceAddList_accountNameTI"
+                        android:id="@+id/fragmentInvoiceAddList_accountApexListNameTI"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -104,7 +102,9 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_round_person_24"
+                            android:drawablePadding="5dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <View
@@ -133,7 +133,7 @@
                             android:layout_marginStart="16dp"
                             android:gravity="start"
                             android:text="درصد بهره"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -142,19 +142,20 @@
                             android:layout_marginLeft="16dp">
 
                             <ImageView
-                                android:id="@+id/imageView"
+                                android:id="@+id/fragmentInvoiceAddList_addPercentIv"
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 app:srcCompat="@drawable/ic_round_add_circle_outline_24" />
 
                             <TextView
+                                android:id="@+id/fragmentInvoiceAddList_percentTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="%4"
-                                android:textSize="20sp" />
+                                android:text="%0"
+                                android:textSize="18sp" />
 
                             <ImageView
-                                android:id="@+id/imageView2"
+                                android:id="@+id/fragmentInvoiceAddList_removePercentIv"
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 app:srcCompat="@drawable/ic_round_remove_circle_outline_24" />
@@ -176,97 +177,107 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="جمع فاکتورها"
-                        android:textSize="20sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@id/fragmentInvoiceAddList_priceAndNumberCL"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:weightSum="3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2">
+                        android:visibility="gone">
 
-                        <FrameLayout
-                            android:id="@+id/frameLayout2"
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="2"
-                            android:background="@drawable/framelayout_apex_item_background"
-                            android:backgroundTint="@color/light_gray"
-                            android:padding="5dp"
-                            app:layout_constraintEnd_toStartOf="@+id/frameLayout3"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:paddingTop="8dp"
+                            android:text="جمع فاکتورها"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-                            <TextView
-                                android:layout_width="203dp"
+                            <FrameLayout
+                                android:id="@+id/frameLayout2"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="10000ریال"
-                                android:textAlignment="center"
-                                android:textSize="18dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="2"
+                                android:background="@drawable/framelayout_apex_item_background"
+                                android:backgroundTint="@color/light_gray"
+                                android:padding="5dp"
+                                app:layout_constraintEnd_toStartOf="@+id/frameLayout3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                                <TextView
+                                    android:layout_width="203dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="10000ریال"
+                                    android:textAlignment="center"
+                                    android:textSize="18dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.449"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                                <ImageView
+                                    android:id="@+id/imageView3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    app:srcCompat="@drawable/ic_baseline_functions_24" />
+
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/frameLayout3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/framelayout_apex_item_background"
+                                android:backgroundTint="@color/light_gray"
+                                android:padding="5dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.449"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                                app:layout_constraintTop_toTopOf="@+id/frameLayout2">
 
-                            <ImageView
-                                android:id="@+id/imageView3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                app:srcCompat="@drawable/ic_baseline_functions_24" />
+                                <TextView
+                                    android:layout_width="84dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="1 مورد"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/green"
+                                    android:textSize="18dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:id="@+id/frameLayout3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/framelayout_apex_item_background"
-                            android:backgroundTint="@color/light_gray"
-                            android:padding="5dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/frameLayout2">
-
-                            <TextView
-                                android:layout_width="84dp"
-                                android:layout_height="wrap_content"
-                                android:text="1 مورد"
-                                android:textAlignment="center"
-                                android:textSize="18dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                app:srcCompat="@drawable/ic_round_1x_mobiledata_24" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    app:srcCompat="@drawable/ic_round_1x_mobiledata_24" />
 
 
-                        </FrameLayout>
-                    </LinearLayout>
+                            </FrameLayout>
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/textView5"
@@ -274,8 +285,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
+                        android:drawableStart="@drawable/ic_baseline_today_24"
+                        android:drawablePadding="10dp"
                         android:text="تاریخ راس فاکتور"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -285,14 +298,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
                         <ImageView
-                            android:id="@+id/imageView4"
+                            android:id="@+id/fragmentInvoiceAddList_informationBtn"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_marginLeft="10dp"
@@ -301,10 +313,33 @@
                             tools:layout_editor_absoluteY="480dp" />
 
                         <FrameLayout
-                            android:id="@+id/frameLayout4"
+                            android:id="@+id/fragmentInvoiceAddList_dayFl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/framelayout_apex_item_background"
+                            android:backgroundTint="@color/light_gray"
+                            android:padding="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            tools:ignore="MissingConstraints">
+
+                            <TextView
+                                android:id="@+id/fragmentInvoiceAddList_dayTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:text="0 روزه"
+                                android:textSize="18dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.449"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                        </FrameLayout>
+                        <FrameLayout
+                            android:id="@+id/fragmentInvoiceAddList_dateFl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:background="@drawable/framelayout_apex_item_background"
                             android:backgroundTint="@color/light_gray"
                             android:padding="5dp"
@@ -323,16 +358,6 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-                            <TextView
-                                android:layout_width="203dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="start"
-                                android:text="30 روزه :"
-                                android:textSize="18dp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.449"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
                         </FrameLayout>
 
 
@@ -349,6 +374,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/fragmentInvoiceAddList_descriptionTI"
@@ -367,8 +393,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="top"
-                            android:minLines="5"
-                            android:maxLines="5"/>
+                            android:maxLines="5"
+                            android:minLines="5" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -377,7 +403,7 @@
 
             <Button
                 android:layout_alignParentBottom="true"
-                android:id="@+id/button"
+                android:id="@+id/fragmentInvoiceAddList_addBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

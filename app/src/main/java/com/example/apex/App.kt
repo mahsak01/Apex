@@ -7,6 +7,7 @@ import com.example.apex.data.implement.ApexRepositoryImplement
 import com.example.apex.data.repository.ApexRepository
 import com.facebook.drawee.backends.pipeline.Fresco
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import timber.log.Timber
@@ -26,6 +27,7 @@ class App : Application() {
             factory<ApexRepository> {
                 ApexRepositoryImplement(get<AppDatabase>().apexDao())
             }
+            viewModel{ApexViewModel(get())}
         }
 
         startKoin {
