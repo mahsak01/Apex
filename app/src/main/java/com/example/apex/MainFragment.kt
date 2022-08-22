@@ -20,10 +20,10 @@ class MainFragment : Fragment() {
 
     private fun setListeners(){
         binding.fragmentMainInvoiceBtn.setOnClickListener{
-            this.findNavController().navigate(R.id.action_mainFragment_to_invoiceFragment)
+            this.findNavController().navigate(R.id.action_mainFragment_to_apexListHeaderFragment)
         }
         binding.fragmentMainChequeBtn.setOnClickListener{
-            this.findNavController().navigate(R.id.action_mainFragment_to_chequeFragment)
+            this.findNavController().navigate(R.id.action_mainFragment_to_apexListHeaderFragment)
         }
     }
 

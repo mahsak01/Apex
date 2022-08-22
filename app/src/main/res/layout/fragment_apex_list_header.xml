@@ -50,15 +50,15 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             android:layout_height="match_parent">
             <include
-                android:id="@+id/fragmentCheque_emptyLayout"
+                android:id="@+id/fragmentApexListHeader_emptyLayout"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:visibility="visible"
                 layout="@layout/fragment_empty"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentInvoice_searchEt" />
+                app:layout_constraintTop_toBottomOf="@+id/fragmentApexListHeader_searchEt" />
 
             <TextView
-                android:id="@+id/fragmentInvoice_countItemTv"
+                android:id="@+id/fragmentApexListHeader_countItemTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/fragmentInvoice_timeTv"
+                android:id="@+id/fragmentApexListHeader_timeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/fragmentInvoice_searchEt"
+                android:id="@+id/fragmentApexListHeader_searchEt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -93,19 +93,19 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentInvoice_countItemTv" />
+                app:layout_constraintTop_toBottomOf="@+id/fragmentApexListHeader_countItemTv" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragmentInvoice_invoiceListRv"
+                android:id="@+id/fragmentApexListHeader_apexListRv"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentInvoice_searchEt" />
+                app:layout_constraintTop_toBottomOf="@+id/fragmentApexListHeader_searchEt" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fragmentInvoice_addInvoiceBtn"
+                android:id="@+id/fragmentApexListHeader_addBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

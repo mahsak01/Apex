@@ -6,45 +6,54 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apex.common.MenuStatus
 import com.example.apex.data.model.ApexListHeader
-import com.example.apex.databinding.LayoutInvoiceItemBinding
-import com.example.apex.databinding.LayoutInvoiceItemSwipeBinding
+import com.example.apex.databinding.LayoutApexListItemBinding
+import com.example.apex.databinding.LayoutApexListItemSwipeBinding
 
-class InvoiceItemAdapter(val apexListHeader: ArrayList<ApexListHeader>,val eventListener: EventListener) :
+class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, val eventListener: EventListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    inner class ViewHolder(val binding: LayoutInvoiceItemBinding) :
+    val allApexListHeader=apexListHeader
+
+    inner class ViewHolder(val binding: LayoutApexListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun binding(apexListHeader: ApexListHeader) {
-            binding.layoutInvoiceItemApexListHeaderNameTv.text =
+            binding.layoutApexListItemApexListHeaderNameTv.text =
                 "گروه فاکتور: " + apexListHeader.name
-            binding.layoutInvoiceItemApexListHeaderNumberInvoiceTv.text =
+            binding.layoutApexListItemApexListHeaderNumberInvoiceTv.text =
                 "تعداد فاکتور: " + apexListHeader.numberItem.toString() + " مورد"
-            binding.layoutInvoiceItemApexListHeaderTotalPriceTv.text =
+            binding.layoutApexListItemApexListHeaderTotalPriceTv.text =
                 "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
-            binding.layoutInvoiceItemApexListHeaderDateTv.text =
+            binding.layoutApexListItemApexListHeaderDateTv.text =
                 "تاریخ راس فاکتور: " + apexListHeader.date
-            binding.layoutInvoiceItemApexListHeader.setOnClickListener {
+            binding.layoutApexListItemApexListHeader.setOnClickListener {
                 eventListener.openEditBottomSheet(apexListHeader)
             }
         }
     }
 
-    inner class ViewHolderSwipe(val binding: LayoutInvoiceItemSwipeBinding) :
+    inner class ViewHolderSwipe(val binding: LayoutApexListItemSwipeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun binding(apexListHeader: ApexListHeader) {
-            binding.layoutInvoiceItemApexListHeaderNameTv.text =
+            binding.layoutApexListItemSwipeApexListHeaderNameTv.text =
                 "گروه فاکتور: " + apexListHeader.name
-            binding.layoutInvoiceItemApexListHeaderNumberInvoiceTv.text =
+            binding.layoutApexListItemSwipeApexListHeaderNumberInvoiceTv.text =
                 "تعداد فاکتور: " + apexListHeader.numberItem.toString() + " مورد"
-            binding.layoutInvoiceItemApexListHeaderTotalPriceTv.text =
+            binding.layoutApexListItemSwipeApexListHeaderTotalPriceTv.text =
                 "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
-            binding.layoutInvoiceItemApexListHeaderDateTv.text =
+            binding.layoutApexListItemSwipeApexListHeaderDateTv.text =
                 "تاریخ راس فاکتور: " + apexListHeader.date
-            binding.layoutInvoiceItemApexListHeader.setOnClickListener {
+            binding.layoutApexListItemSwipeApexListHeader.setOnClickListener {
                 eventListener.openEditBottomSheet(apexListHeader)
             }
+            binding.layoutApexListItemSwipeDeleteBtn.setOnClickListener {
+                eventListener.deleteApexListHeader(apexListHeader)
+            }
+            binding.layoutApexListItemSwipeEditBtn.setOnClickListener {
+                eventListener.editApexListHeader(apexListHeader)
+            }
+
         }
     }
 
@@ -53,7 +62,7 @@ class InvoiceItemAdapter(val apexListHeader: ArrayList<ApexListHeader>,val event
             return ViewHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.layout_invoice_item,
+                    R.layout.layout_apex_list_item,
                     parent,
                     false
                 )
@@ -61,7 +70,7 @@ class InvoiceItemAdapter(val apexListHeader: ArrayList<ApexListHeader>,val event
         return ViewHolderSwipe(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.layout_invoice_item_swipe,
+                R.layout.layout_apex_list_item_swipe,
                 parent,
                 false
             )
@@ -98,8 +107,26 @@ class InvoiceItemAdapter(val apexListHeader: ArrayList<ApexListHeader>,val event
         this.apexListHeader[position].isShowMenu = false
         notifyItemChanged(position)
     }
+    fun search(word:String){
+        apexListHeader=allApexListHeader
+        var apexListHeaderSearch=ArrayList<ApexListHeader>()
+
+        for (item in apexListHeader)
+            if (item.name.contains(word))
+                apexListHeaderSearch.add(item)
+
+        apexListHeader=apexListHeaderSearch
+        if(apexListHeader.size==0)
+            eventListener.emptySearch(true)
+        else
+            eventListener.emptySearch(false)
+        notifyDataSetChanged()
+    }
 
     interface EventListener{
-        fun openEditBottomSheet(apexItem: ApexListHeader)
+        fun openEditBottomSheet(apexListHeader: ApexListHeader)
+        fun deleteApexListHeader(apexListHeader: ApexListHeader)
+        fun editApexListHeader(apexListHeader: ApexListHeader)
+        fun emptySearch(show:Boolean)
     }
 }

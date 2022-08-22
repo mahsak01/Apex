@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/layoutInvoiceItem_apexListHeader"
+        android:id="@+id/layoutApexItem_apexItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
@@ -13,7 +13,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-
         android:layoutDirection="rtl">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,45 +20,54 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/layoutInvoiceItem_apexListHeaderNameTv"
+                android:id="@+id/layoutApexItem_apexItemSerialTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="گروه فاکتور : گروه فاکتور اول"
+                android:text="سریال چک : 5545454545845"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/layoutInvoiceItem_apexListHeaderDateTv"
+                android:id="@+id/layoutApexItem_apexItemDateTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="تاریخ راس فاکتور : 23 / 6 / 1401"
-                app:layout_constraintStart_toStartOf="@+id/layoutInvoiceItem_apexListHeaderNameTv"
-                app:layout_constraintTop_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderNameTv" />
+                android:text="تاریخ فاکتور : 23 / 6 / 1401"
+                app:layout_constraintStart_toStartOf="@+id/layoutApexItem_apexItemSerialTv"
+                app:layout_constraintTop_toBottomOf="@+id/layoutApexItem_apexItemSerialTv" />
 
             <TextView
-                android:id="@+id/layoutInvoiceItem_apexListHeaderTotalPriceTv"
+                android:id="@+id/layoutApexItem_apexItemPercentPriceTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="مبلغ کل : 24,000,000 ریال"
+                android:text="مبلغ بهره : 24,000,000 ریال"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/layoutInvoiceItem_apexListHeaderNumberInvoiceTv"
-                app:layout_constraintStart_toStartOf="@+id/layoutInvoiceItem_apexListHeaderDateTv"
-                app:layout_constraintTop_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderDateTv" />
+                app:layout_constraintEnd_toStartOf="@+id/layoutApexItem_apexItemDayTv"
+                app:layout_constraintStart_toStartOf="@+id/layoutApexItem_apexItemDateTv"
+                app:layout_constraintTop_toBottomOf="@+id/layoutApexItem_apexItemPriceTv" />
 
             <TextView
-                android:id="@+id/layoutInvoiceItem_apexListHeaderNumberInvoiceTv"
+                android:id="@+id/layoutApexItem_apexItemPriceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="مبلغ فاکتور : 24,000,000 ریال"
+                app:layout_constraintStart_toStartOf="@+id/layoutApexItem_apexItemDateTv"
+                app:layout_constraintTop_toBottomOf="@+id/layoutApexItem_apexItemDateTv" />
+
+            <TextView
+                android:id="@+id/layoutApexItem_apexItemDayTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="تعداد فاکتور ها : 3 مورد"
-                app:layout_constraintBottom_toBottomOf="@+id/layoutInvoiceItem_apexListHeaderTotalPriceTv"
+                android:text="تعداد روز : 3 روز"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutApexItem_apexItemPercentPriceTv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/layoutInvoiceItem_apexListHeaderTotalPriceTv" />
+                app:layout_constraintTop_toTopOf="@+id/layoutApexItem_apexItemPercentPriceTv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

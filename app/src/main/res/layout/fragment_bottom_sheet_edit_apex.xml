@@ -210,14 +210,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-                        <ImageView
-                            android:id="@+id/fragmentInvoiceAddList_informationBtn"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_marginLeft="10dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:srcCompat="@drawable/ic_round_info_24"
-                            tools:layout_editor_absoluteY="480dp" />
 
                         <FrameLayout
                             android:id="@+id/fragmentInvoiceAddList_dayFl"

@@ -20,10 +20,10 @@ class DayDialogFragment(val eventListener: EventListener):DialogFragment() {
     }
 
     private fun setListeners() {
-        this.binding.layoutDatePickerCancelBtn.setOnClickListener {
+        this.binding.fragmentGetDayDialogCancelBtn.setOnClickListener {
             dismiss()
         }
-        this.binding.layoutDatePickerAcceptDayBtn.setOnClickListener {
+        this.binding.fragmentGetDayDialogAcceptBtn.setOnClickListener {
             val day=binding.fragmentGetDayDialogDayTIL.editText?.text.toString()
             if (day!=null && day!=""){
                 eventListener.changeDay(day.toInt())

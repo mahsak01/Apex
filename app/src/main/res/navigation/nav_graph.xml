@@ -7,30 +7,23 @@
         android:id="@+id/mainFragment"
         android:name="com.example.apex.MainFragment"
         android:label="MainFragment" >
+
         <action
-            android:id="@+id/action_mainFragment_to_chequeFragment"
-            app:destination="@id/chequeFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_invoiceFragment"
-            app:destination="@id/invoiceFragment" />
+            android:id="@+id/action_mainFragment_to_apexListHeaderFragment"
+            app:destination="@id/apexListHeaderFragment" />
     </fragment>
     <fragment
-        android:id="@+id/chequeFragment"
-        android:name="com.example.apex.ChequeFragment"
-        android:label="ChequeFragment" >
-    </fragment>
-    <fragment
-        android:id="@+id/invoiceFragment"
-        android:name="com.example.apex.InvoiceFragment"
-        android:label="InvoiceFragment" >
+        android:id="@+id/apexListHeaderFragment"
+        android:name="com.example.apex.ApexListHeaderFragment"
+        android:label="ApexListHeaderFragment" >
         <action
-            android:id="@+id/action_invoiceFragment_to_addApexListInvoiceFragment"
-            app:destination="@id/addApexListInvoiceFragment" />
+            android:id="@+id/action_apexListHeaderFragment_to_addApexListHeaderFragment"
+            app:destination="@id/addApexListHeaderFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addApexListInvoiceFragment"
-        android:name="com.example.apex.AddApexListInvoiceFragment"
-        android:label="AddApexListInvoiceFragment" >
+        android:id="@+id/addApexListHeaderFragment"
+        android:name="com.example.apex.AddApexListHeaderFragment"
+        android:label="AddApexListHeaderFragment" >
         <argument
             android:name="modePage"
             app:argType="com.example.apex.common.ModePage"/>
@@ -41,6 +34,17 @@
             android:name="apexListHeader"
             app:argType="com.example.apex.data.model.ApexListHeader"
             app:nullable="true" />
-
+        <action
+            android:id="@+id/action_addApexListHeaderFragment_to_apexListItemFragment"
+            app:destination="@id/apexListItemFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/apexListItemFragment"
+        android:name="com.example.apex.ApexListItemFragment"
+        android:label="ApexListItemFragment" >
+        <argument
+            android:name="apexListHeader"
+            app:argType="com.example.apex.data.model.ApexListHeader" />
+    </fragment>
+
 </navigation>

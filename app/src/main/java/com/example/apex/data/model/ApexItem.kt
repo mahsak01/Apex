@@ -1,10 +1,7 @@
 package com.example.apex.data.model
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 import java.math.BigInteger
 
@@ -12,23 +9,26 @@ import java.math.BigInteger
     foreignKeys = [ForeignKey(
         entity = ApexListHeader::class,
         childColumns = ["Apex_list_header_item"],
-        parentColumns = ["id"]
+        parentColumns = ["id"],
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE
     )])
 @Parcelize
 data class ApexItem(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val serial: String,
-    val date: Int,
+    val date: String,
     @ColumnInfo(name = "apex_day")
-    val apexDay: Int,
+    val apexDay: Long,
     val price: Int,
     @ColumnInfo(name = "price_interest")
     val priceInterest: Int,
     @ColumnInfo(name = "Apex_list_header_item")
-    val ApexListHeaderItem:Long
+    var ApexListHeaderItem:Long
 
 ) : Parcelable {
-
+    @Ignore
+    var isShowMenu:Boolean = false
 
 }

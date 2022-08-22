@@ -16,25 +16,25 @@ class ApexRepositoryImplement(private val apexLocalDataSource: ApexDataSource) :
     override fun getApexListCheque(): Single<List<ApexListHeader>?> =
         apexLocalDataSource.getApexListCheque()
 
-    override fun getApexListItem(id: Long): Single<List<ApexItem>?> =
-        apexLocalDataSource.getApexListItem(id)
+    override fun getApexItem(id: Long): Single<List<ApexItem>?> =
+        apexLocalDataSource.getApexItem(id)
 
-    override fun deleteApexListItem(apexItem: ApexItem): Completable =
-        apexLocalDataSource.deleteApexListItem(apexItem)
+    override fun deleteApexItem(apexItem: ApexItem): Completable =
+        apexLocalDataSource.deleteApexItem(apexItem)
 
-    override fun updateApexListItem(apexItem: ApexItem): Completable =
-      apexLocalDataSource.updateApexListItem(apexItem)
+    override fun updateApexItem(apexItem: ApexItem): Completable =
+      apexLocalDataSource.updateApexItem(apexItem)
 
-    override fun addApexListItem(apexItem: ApexItem): Completable =
-        apexLocalDataSource.addApexListItem(apexItem)
+    override fun addApexItem(apexItem: ApexItem): Completable =
+        apexLocalDataSource.addApexItem(apexItem)
 
-    override fun addApexList(apexListHeader: ApexListHeader): Completable =
-        apexLocalDataSource.addApexList(apexListHeader)
+    override fun addApexListHeader(apexListHeader: ApexListHeader): Completable =
+        apexLocalDataSource.addApexListHeader(apexListHeader)
 
-    override fun updateApexList(apexListHeader: ApexListHeader): Completable =
-        apexLocalDataSource.updateApexList(apexListHeader)
+    override fun updateApexListHeader(apexListHeader: ApexListHeader): Completable =
+        apexLocalDataSource.updateApexListHeader(apexListHeader)
 
 
-    override fun deleteApexList(apexListHeader: ApexListHeader): Completable =
-        apexLocalDataSource.deleteApexList(apexListHeader.id)
+    override fun deleteApexListHeader(apexListHeader: ApexListHeader): Completable =
+        apexLocalDataSource.deleteApexListHeader(apexListHeader)
 }

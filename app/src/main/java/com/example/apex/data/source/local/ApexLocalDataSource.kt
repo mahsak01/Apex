@@ -16,25 +16,25 @@ interface ApexLocalDataSource:ApexDataSource {
     override fun getApexListCheque(): Single<List<ApexListHeader>?>
 
     @Query("SELECT * FROM ApexItem WHERE Apex_list_header_item= :id")
-    override fun getApexListItem(id: Long): Single<List<ApexItem>?>
+    override fun getApexItem(id: Long): Single<List<ApexItem>?>
 
     @Delete
-    override fun deleteApexListItem(apexItem: ApexItem): Completable
+    override fun deleteApexItem(apexItem: ApexItem): Completable
 
-    @Query("delete from ApexItem WHERE Apex_list_header_item= :id")
-    override fun deleteApexList(id: Long): Completable
-
-    @Update
-    override fun updateApexListItem(apexItem: ApexItem): Completable
+    @Delete
+    override fun deleteApexListHeader(apexListHeader: ApexListHeader): Completable
 
     @Update
-    override fun updateApexList(apexListHeader: ApexListHeader): Completable
+    override fun updateApexItem(apexItem: ApexItem): Completable
+
+    @Update
+    override fun updateApexListHeader(apexListHeader: ApexListHeader): Completable
 
     @Insert
-    override fun addApexListItem(apexItem: ApexItem): Completable
+    override fun addApexItem(apexItem: ApexItem): Completable
 
     @Insert
-    override fun addApexList(apexListHeader: ApexListHeader): Completable
+    override fun addApexListHeader(apexListHeader: ApexListHeader): Completable
 
 
 }

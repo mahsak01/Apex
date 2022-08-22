@@ -34,7 +34,7 @@ class EditApexBottomSheetFragment(private val apexListHeader: ApexListHeader):Bo
             dismiss()
             this.findNavController()
                 .navigate(
-                    InvoiceFragmentDirections.actionInvoiceFragmentToAddApexListInvoiceFragment(
+                    ApexListHeaderFragmentDirections.actionApexListHeaderFragmentToAddApexListHeaderFragment(
                        ModePage.EDIT ,NamePage.INVOICE,apexListHeader
                     )
                 )
