@@ -35,7 +35,7 @@ class AddApexListHeaderFragment() :
 
     private fun setInformation() {
         binding.fragmentApexAddListHeaderAppBarText.text = "گروه " + args.namePage.getValue()
-        binding.fragmentApexAddListHeaderAccountApexListNameTI.hint =
+        binding.fragmentApexAddListHeaderApexListNameTI.hint =
             "نام گروه " + args.namePage.getValue()
         binding.fragmentApexAddListHeaderSumApexListHeaderTv.hint =
             "جمع " + args.namePage.getValue() + " ها"
