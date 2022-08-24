@@ -1,6 +1,7 @@
 package com.example.apex
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
@@ -8,7 +9,9 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -31,6 +34,24 @@ class AddApexListHeaderFragment() :
         this.view?.requestFocus()
         setListeners()
         setInformation()
+        setObserver()
+    }
+
+    private fun setObserver() {
+        viewModel.addApexListHeaderLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val inputMethodManager = this.requireContext()
+                    .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                this.findNavController()
+                    .navigate(
+                        AddApexListHeaderFragmentDirections.actionAddApexListHeaderFragmentToApexListItemFragment(
+                            it[0],
+                            args.namePage
+                        )
+                    )
+            }
+        }
     }
 
     private fun setInformation() {
@@ -64,7 +85,7 @@ class AddApexListHeaderFragment() :
         } else
             binding.fragmentApexAddListHeaderPriceAndNumberCL.visibility = View.GONE
 
-       }
+    }
 
     private fun setListeners() {
         binding.fragmentApexAddListHeaderAddBtn.setOnClickListener {
@@ -93,28 +114,26 @@ class AddApexListHeaderFragment() :
                                     accountApexListName,
                                     percent,
                                     apexDay!!,
-                                    apexListPrice.toInt(),
-                                    0,
-                                    args.namePage==NamePage.INVOICE,
+                                    apexListPrice,
+                                    "0",
+                                    args.namePage == NamePage.INVOICE,
                                     0,
                                     description
                                 )
-                                if (viewModel.searchApexListHeader(apexListHeader)){
+                                if (viewModel.searchApexListHeader(apexListHeader)) {
                                     viewModel.addApexListHeader(
                                         apexListHeader
                                     )
+
                                     Toast.makeText(
                                         requireContext(),
                                         "گروه ${args.namePage.getValue()} اضافه شد",
                                         Toast.LENGTH_SHORT
                                     )
                                         .show()
-                                    this.findNavController()
-                                        .navigate(
-                                            AddApexListHeaderFragmentDirections.actionAddApexListHeaderFragmentToApexListItemFragment(apexListHeader,args.namePage)
-                                        )
 
-                                }else{
+
+                                } else {
                                     Toast.makeText(
                                         requireContext(),
                                         "گروه ${args.namePage.getValue()} با این اسم وجود دارد",
@@ -132,9 +151,9 @@ class AddApexListHeaderFragment() :
                                     accountApexListName,
                                     percent,
                                     apexDay!!,
-                                    apexListPrice.toInt(),
-                                    0,
-                                    args.namePage==NamePage.INVOICE,
+                                    apexListPrice,
+                                    args.apexListHeader!!.totalPrice,
+                                    args.namePage == NamePage.INVOICE,
                                     args.apexListHeader!!.numberItem,
                                     description
                                 )
@@ -148,10 +167,7 @@ class AddApexListHeaderFragment() :
                                     Toast.LENGTH_SHORT
                                 )
                                     .show()
-                                this.findNavController()
-                                    .navigate(
-                                        AddApexListHeaderFragmentDirections.actionAddApexListHeaderFragmentToApexListItemFragment(apexListHeader,args.namePage)
-                                    )
+
                             }
 
 
@@ -179,7 +195,11 @@ class AddApexListHeaderFragment() :
                     ).show()
                 }
             } else {
-                Toast.makeText(requireContext(), "نام گروه ${args.namePage.getValue()} را وارد کنید", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "نام گروه ${args.namePage.getValue()} را وارد کنید",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
@@ -203,17 +223,14 @@ class AddApexListHeaderFragment() :
         this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
             View.OnKeyListener {
             override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
-                if( p1 == KeyEvent.KEYCODE_BACK )
-                {
-                    requireActivity().onBackPressed()
+                if (p1 == KeyEvent.KEYCODE_BACK) {
                     return true
                 }
                 return false
             }
 
             override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
-                if( p1 == KeyEvent.KEYCODE_BACK )
-                {
+                if (p1 == KeyEvent.KEYCODE_BACK) {
                     requireActivity().onBackPressed()
                     return true
 

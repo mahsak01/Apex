@@ -5,20 +5,20 @@
     android:id="@+id/nav_graph"
     app:startDestination="@+id/mainFragment">
     <fragment
-        tools:layout="@layout/fragment_main"
         android:id="@+id/mainFragment"
         android:name="com.example.apex.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_mainFragment_to_apexListHeaderFragment"
             app:destination="@id/apexListHeaderFragment" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_apex_list_header"
         android:id="@+id/apexListHeaderFragment"
         android:name="com.example.apex.ApexListHeaderFragment"
-        android:label="ApexListHeaderFragment" >
+        android:label="ApexListHeaderFragment"
+        tools:layout="@layout/fragment_apex_list_header">
         <action
             android:id="@+id/action_apexListHeaderFragment_to_addApexListHeaderFragment"
             app:destination="@id/addApexListHeaderFragment" />
@@ -27,13 +27,13 @@
             app:argType="com.example.apex.common.NamePage" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_add_apex_list_header"
         android:id="@+id/addApexListHeaderFragment"
         android:name="com.example.apex.AddApexListHeaderFragment"
-        android:label="AddApexListHeaderFragment" >
+        android:label="AddApexListHeaderFragment"
+        tools:layout="@layout/fragment_add_apex_list_header">
         <argument
             android:name="modePage"
-            app:argType="com.example.apex.common.ModePage"/>
+            app:argType="com.example.apex.common.ModePage" />
         <argument
             android:name="namePage"
             app:argType="com.example.apex.common.NamePage" />
@@ -49,16 +49,18 @@
             app:destination="@id/apexListHeaderFragment" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_apex_items"
         android:id="@+id/apexListItemFragment"
         android:name="com.example.apex.ApexListItemFragment"
-        android:label="ApexListItemFragment" >
+        android:label="ApexListItemFragment"
+        tools:layout="@layout/fragment_apex_items">
         <argument
             android:name="apexListHeader"
             app:argType="com.example.apex.data.model.ApexListHeader" />
         <action
             android:id="@+id/action_apexListItemFragment_to_apexListHeaderFragment2"
-            app:destination="@id/apexListHeaderFragment" />
+            app:destination="@id/apexListHeaderFragment"
+            app:popUpTo="@id/apexListHeaderFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="namePage"
             app:argType="com.example.apex.common.NamePage" />

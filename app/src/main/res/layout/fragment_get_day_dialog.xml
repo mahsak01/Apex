@@ -30,6 +30,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="5"
                 android:drawableStart="@drawable/ic_round_domain_verification_24"
                 android:drawablePadding="5dp" />
         </com.google.android.material.textfield.TextInputLayout>

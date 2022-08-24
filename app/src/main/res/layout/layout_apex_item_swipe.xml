@@ -21,11 +21,17 @@
 
             <TextView
                 android:id="@+id/layoutApexItemSwipe_apexItemSerialTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="254dp"
+                android:layout_height="17dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:text="سریال چک : 5545454545845"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                app:layout_constraintEnd_toStartOf="@+id/layoutApexItemSwipe_editBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,11 +65,18 @@
 
             <TextView
                 android:id="@+id/layoutApexItemSwipe_apexItemDateTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="تاریخ فاکتور : 23 / 6 / 1401"
-                app:layout_constraintStart_toStartOf="@+id/layoutApexItemSwipe_apexItemSerialTv"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutApexItemSwipe_apexItemSerialTv" />
 
             <TextView
@@ -73,6 +86,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="مبلغ بهره : 24,000,000 ریال"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/layoutApexItemSwipe_apexItemDayTv"
                 app:layout_constraintStart_toStartOf="@+id/layoutApexItemSwipe_apexItemDateTv"
@@ -80,11 +97,18 @@
 
             <TextView
                 android:id="@+id/layoutApexItemSwipe_apexItemPriceTv"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="مبلغ فاکتور : 24,000,000 ریال"
-                app:layout_constraintStart_toStartOf="@+id/layoutApexItemSwipe_apexItemDateTv"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutApexItemSwipe_apexItemDateTv" />
 
             <TextView
@@ -93,6 +117,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="تعداد روز : 3 روز"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="@+id/layoutApexItemSwipe_apexItemPercentPriceTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/layoutApexItemSwipe_apexItemPercentPriceTv" />

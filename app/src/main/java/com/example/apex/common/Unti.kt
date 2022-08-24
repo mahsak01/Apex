@@ -1,5 +1,7 @@
 package com.example.apex.common
 
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
 import java.text.SimpleDateFormat
@@ -25,7 +27,7 @@ fun addDates(time1: String, day: Int): String {
 }
 
 
-fun priceInterests(percent: Int, price: Int, apexDay: Long): Int {
+fun priceInterests(percent: Int, price: Long, apexDay: Long): Int {
     var result=0f
     result=((apexDay / 30).toFloat())
     result*=percent
@@ -39,9 +41,9 @@ fun apexDay(apexItems: List<ApexItem>,apexListHeader: ApexListHeader): Int {
     for (item in apexItems) {
         result += priceInterests(
             apexListHeader.percent,
-            item.price,
+            item.price.toLong(),
             differenceDates(apexListHeader.date, item.date)
-        ) * item.price
+        ) * item.price.toLong()
     }
     return (result / totalPrice(apexItems)).toInt()
 }
@@ -49,7 +51,7 @@ fun apexDay(apexItems: List<ApexItem>,apexListHeader: ApexListHeader): Int {
 fun totalPrice(apexItems: List<ApexItem>): Long {
     var result = 0L
     for (item in apexItems) {
-        result += item.price
+        result += item.price.toLong()
     }
     return result
 }
@@ -59,7 +61,7 @@ fun totalPriceInterest(apexItems: List<ApexItem>,apexListHeader: ApexListHeader)
     for (item in apexItems) {
         result += priceInterests(
             apexListHeader.percent,
-            item.price,
+            item.price.toLong(),
             differenceDates(apexListHeader.date, item.date)
 
         )
@@ -72,14 +74,15 @@ fun getLastPrice(apexListHeader: ApexListHeader, totalPrice: Long): Long {
 }
 
 fun getLastInterest(apexListHeader: ApexListHeader, lastPrice: Long, apexDay: Long): Int {
-    return priceInterests(apexListHeader.percent, lastPrice.toInt(), apexDay)
+    return priceInterests(apexListHeader.percent, lastPrice, apexDay)
 }
 
 fun getLastDate(apexListHeader: ApexListHeader, totalPrice: Long, lastPrice: Long): String {
     var result = apexListHeader.apexDay.toLong()
-    result *= apexListHeader.price
+    result *= apexListHeader.price.toLong()
     result -= totalPrice
     result /= lastPrice
 
     return addDates(apexListHeader.date, result.toInt())
 }
+

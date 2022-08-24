@@ -81,10 +81,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
 
             override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
                 if (p1 == KeyEvent.KEYCODE_BACK) {
-                    findNavController()
-                        .navigate(
-                            ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(args.namePage)
-                        )
+
                     return true
 
                 }
@@ -118,6 +115,9 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
 
     private fun setInformation() {
         binding.fragmentApexItemsApexListHeaderName.text = args.apexListHeader.name
+        binding.fragmentApexItemsApexListHeaderName.isSelected=true
+
+        binding.fragmentApexItemsAppBarText.text=args.namePage.getValue()
         viewModel.apexItemsLiveData.observe(viewLifecycleOwner) {
             binding.fragmentApexItemsApexListHeaderNumberTv.text = it.size.toString() + " مورد"
             binding.fragmentApexItemsApexListTotalPriceTv.text =
@@ -145,10 +145,10 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         }
     }
 
-    private fun getTotalPrice(array: List<ApexItem>): Int {
-        var totalPrice = 0
+    private fun getTotalPrice(array: List<ApexItem>): Long {
+        var totalPrice = 0L
         for (item in array) {
-            totalPrice += item.price
+            totalPrice += item.price.toLong()
         }
         return totalPrice
     }
@@ -175,20 +175,20 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         return max
     }
 
-    private fun getMinPrice(array: List<ApexItem>): Int {
-        var min = array[0].price
+    private fun getMinPrice(array: List<ApexItem>): Long {
+        var min = array[0].price.toLong()
         for (item in array) {
-            if (item.price < min)
-                min = item.price
+            if (item.price.toLong() < min)
+                min = item.price.toLong()
         }
         return min
     }
 
-    private fun getMaxPrice(array: List<ApexItem>): Int {
-        var max = array[0].price
+    private fun getMaxPrice(array: List<ApexItem>): Long {
+        var max = array[0].price.toLong()
         for (item in array) {
-            if (item.price > max)
-                max = item.price
+            if (item.price.toLong() > max)
+                max = item.price.toLong()
         }
         return max
     }
@@ -203,7 +203,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
     }
 
     override fun addApexItem(apexItem: ApexItem) {
-        if (!checkPrice(apexItem.price))
+        if (!checkPrice(apexItem.price.toLong()))
             Toast.makeText(
                 requireContext(),
                 "مبلغ ${args.namePage.getValue()} از مبلغ باقی مانده بیشتر است",
@@ -229,7 +229,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
 
     }
 
-    private fun checkPrice(price: Int): Boolean {
+    private fun checkPrice(price: Long): Boolean {
         if (getLastPrice(
                 args.apexListHeader,
                 totalPrice(viewModel.apexItemsLiveData.value!!)

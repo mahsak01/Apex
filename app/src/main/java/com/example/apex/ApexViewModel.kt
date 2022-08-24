@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.apex.common.ApexCompletableObserver
 import com.example.apex.common.ApexSingleObserver
+import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.data.repository.ApexRepository
@@ -15,6 +16,8 @@ class ApexViewModel(private val apexRepository: ApexRepository) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     val apexListHeaderLiveData = MutableLiveData<List<ApexListHeader>>()
     val apexItemsLiveData = MutableLiveData<List<ApexItem>>()
+    val addApexListHeaderLiveData = MutableLiveData<List<ApexListHeader>>()
+
 
     fun searchApexItem(apexItem: ApexItem): Boolean {
         for (item in apexItemsLiveData.value!!)
@@ -43,12 +46,25 @@ class ApexViewModel(private val apexRepository: ApexRepository) : ViewModel() {
             })
     }
 
+
+    fun getApexListHeader(apexListHeader: ApexListHeader) {
+        apexRepository.getApexListHeader(apexListHeader.name, apexListHeader.isInvoice)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : ApexSingleObserver<List<ApexListHeader>?>(compositeDisposable) {
+                override fun onSuccess(t: List<ApexListHeader>) {
+                    addApexListHeaderLiveData.value = t
+                }
+            })
+    }
+
     fun addApexListHeader(apexListHeader: ApexListHeader) {
         apexRepository.addApexListHeader(apexListHeader)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : ApexCompletableObserver(compositeDisposable) {
                 override fun onComplete() {
+                    getApexListHeader(apexListHeader)
                 }
             })
     }
@@ -60,7 +76,7 @@ class ApexViewModel(private val apexRepository: ApexRepository) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : ApexCompletableObserver(compositeDisposable) {
                 override fun onComplete() {
-                    getApexInvoiceListHeader()
+                    getApexListHeader(apexListHeader)
                 }
             })
     }
@@ -108,7 +124,8 @@ class ApexViewModel(private val apexRepository: ApexRepository) : ViewModel() {
             .subscribe(object : ApexCompletableObserver(compositeDisposable) {
                 override fun onComplete() {
                     apexListHeader.numberItem++
-                    apexListHeader.totalPrice += apexItem.price
+                    apexListHeader.totalPrice =
+                        (apexListHeader.totalPrice.toLong() + apexItem.price.toLong()).toString()
                     updateApexListHeader(apexListHeader)
                     getApexInvoiceListHeader()
                     getApexItems(apexListHeader)
@@ -123,7 +140,8 @@ class ApexViewModel(private val apexRepository: ApexRepository) : ViewModel() {
             .subscribe(object : ApexCompletableObserver(compositeDisposable) {
                 override fun onComplete() {
                     apexListHeader.numberItem--
-                    apexListHeader.totalPrice -= apexItem.price
+                    apexListHeader.totalPrice =
+                        (apexListHeader.totalPrice.toLong() - apexItem.price.toLong()).toString()
                     updateApexListHeader(apexListHeader)
                     getApexInvoiceListHeader()
                     getApexItems(apexListHeader)

@@ -41,7 +41,6 @@ class SortApexItemDialogFragment(private val sort:Int=2131231375, private val ev
 
             override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
                 if (p1 == KeyEvent.KEYCODE_BACK) {
-                    requireActivity().onBackPressed()
                     return true
 
                 }

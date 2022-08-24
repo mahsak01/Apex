@@ -21,21 +21,34 @@
 
             <TextView
                 android:id="@+id/layoutApexItem_apexItemSerialTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="سریال چک : 5545454545845"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/layoutApexItem_apexItemDateTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="تاریخ فاکتور : 23 / 6 / 1401"
-                app:layout_constraintStart_toStartOf="@+id/layoutApexItem_apexItemSerialTv"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutApexItem_apexItemSerialTv" />
 
             <TextView
@@ -45,6 +58,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="مبلغ بهره : 24,000,000 ریال"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/layoutApexItem_apexItemDayTv"
                 app:layout_constraintStart_toStartOf="@+id/layoutApexItem_apexItemDateTv"
@@ -52,11 +69,18 @@
 
             <TextView
                 android:id="@+id/layoutApexItem_apexItemPriceTv"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="مبلغ فاکتور : 24,000,000 ریال"
-                app:layout_constraintStart_toStartOf="@+id/layoutApexItem_apexItemDateTv"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutApexItem_apexItemDateTv" />
 
             <TextView
@@ -65,6 +89,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="تعداد روز : 3 روز"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="@+id/layoutApexItem_apexItemPercentPriceTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/layoutApexItem_apexItemPercentPriceTv" />

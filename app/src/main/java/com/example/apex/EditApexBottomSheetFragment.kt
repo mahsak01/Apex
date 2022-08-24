@@ -105,6 +105,8 @@ class EditApexBottomSheetFragment(
     }
 
     private fun setInformation() {
+        binding.fragmentBottomSheetEditApexApexListHeaderNameTv.isSelected = true
+        binding.fragmentBottomSheetEditApexApexListHeaderAccountNameTv.isSelected = true
         binding.fragmentBottomSheetEditApexApexListHeaderNameTv.text = apexListHeader.name
         binding.fragmentBottomSheetEditApexApexListHeaderAccountNameTv.text =
             "طرف حساب: " + apexListHeader.accountName

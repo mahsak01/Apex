@@ -14,6 +14,8 @@ interface ApexDataSource {
 
     fun getApexItem(id:Long): Single<List<ApexItem>?>
 
+    fun getApexListHeader(name:String,isInvoice:Boolean): Single<List<ApexListHeader>?>
+
     fun deleteApexItem(apexItem: ApexItem): Completable
 
     fun updateApexItem(apexItem: ApexItem): Completable

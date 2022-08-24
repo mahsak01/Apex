@@ -54,7 +54,6 @@ class DayDialogFragment(val eventListener: EventListener):DialogFragment() {
             override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
                 if( p1 == KeyEvent.KEYCODE_BACK )
                 {
-                    requireActivity().onBackPressed()
                     return true
 
                 }

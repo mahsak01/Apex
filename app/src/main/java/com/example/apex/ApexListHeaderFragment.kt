@@ -1,5 +1,6 @@
 package com.example.apex
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -81,7 +83,9 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
             sortDialogFragment.show(requireActivity().supportFragmentManager, null)
         }
         binding.fragmentApexListHeaderAddBtn.setOnClickListener {
-
+            val inputMethodManager = this.requireContext()
+                .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
             this.findNavController()
                 .navigate(
@@ -127,7 +131,6 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
 
             override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
                 if (p1 == KeyEvent.KEYCODE_BACK) {
-                    requireActivity().onBackPressed()
                     return true
 
                 }

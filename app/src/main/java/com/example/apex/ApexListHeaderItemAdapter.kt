@@ -32,6 +32,10 @@ class ApexListHeaderItemAdapter(
                 "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
             binding.layoutApexListItemApexListHeaderDateTv.text =
                 "تاریخ راس ${namePage.getValue()}: " + apexListHeader.date
+            binding.layoutApexListItemApexListHeaderNameTv.isSelected =true
+            binding.layoutApexListItemApexListHeaderNumberInvoiceTv.isSelected =true
+            binding.layoutApexListItemApexListHeaderTotalPriceTv.isSelected =true
+            binding.layoutApexListItemApexListHeaderDateTv.isSelected =true
             binding.layoutApexListItemApexListHeader.setOnClickListener {
                 eventListener.openEditBottomSheet(apexListHeader)
             }
@@ -50,6 +54,11 @@ class ApexListHeaderItemAdapter(
                 "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
             binding.layoutApexListItemSwipeApexListHeaderDateTv.text =
                 "تاریخ راس ${namePage.getValue()}: " + apexListHeader.date
+
+            binding.layoutApexListItemSwipeApexListHeaderNameTv.isSelected =true
+            binding.layoutApexListItemSwipeApexListHeaderNumberInvoiceTv.isSelected =true
+            binding.layoutApexListItemSwipeApexListHeaderTotalPriceTv.isSelected =true
+            binding.layoutApexListItemSwipeApexListHeaderDateTv.isSelected =true
             binding.layoutApexListItemSwipeApexListHeader.setOnClickListener {
                 eventListener.openEditBottomSheet(apexListHeader)
             }

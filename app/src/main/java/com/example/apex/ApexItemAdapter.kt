@@ -37,11 +37,16 @@ class ApexItemAdapter(
             binding.layoutApexItemApexItemPercentPriceTv.text =
                 "مبلغ بهره: " + priceInterests(
                     apexListHeader.percent,
-                    apexItem.price.toInt(),
+                    apexItem.price.toLong(),
                     differenceDates
                 )
             binding.layoutApexItemApexItemDayTv.text =
                 "تعداد روز: $differenceDates روز"
+            binding.layoutApexItemApexItemDayTv.isSelected =true
+            binding.layoutApexItemApexItemSerialTv.isSelected =true
+            binding.layoutApexItemApexItemDateTv.isSelected =true
+            binding.layoutApexItemApexItemPriceTv.isSelected =true
+            binding.layoutApexItemApexItemPercentPriceTv.isSelected =true
 
             binding.layoutApexItemApexItem.setOnClickListener {
                 eventListener.openEditDialog(apexItem)
@@ -66,11 +71,17 @@ class ApexItemAdapter(
             binding.layoutApexItemSwipeApexItemPercentPriceTv.text =
                 "مبلغ بهره: " + priceInterests(
                     apexListHeader.percent,
-                    apexItem.price.toInt(),
+                    apexItem.price.toLong(),
                     differenceDates
                 )
             binding.layoutApexItemSwipeApexItemDayTv.text =
                 "تعداد روز: $differenceDates روز"
+
+            binding.layoutApexItemSwipeApexItemDayTv.isSelected =true
+            binding.layoutApexItemSwipeApexItemSerialTv.isSelected =true
+            binding.layoutApexItemSwipeApexItemDateTv.isSelected =true
+            binding.layoutApexItemSwipeApexItemPriceTv.isSelected =true
+            binding.layoutApexItemSwipeApexItemPercentPriceTv.isSelected =true
             binding.layoutApexItemSwipeDeleteBtn.setOnClickListener {
                 eventListener.deleteApexItem(apexItem)
             }

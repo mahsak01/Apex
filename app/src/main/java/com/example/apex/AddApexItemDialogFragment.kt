@@ -65,7 +65,7 @@ class AddApexItemDialogFragment(
                                     0,
                                     serial,
                                     date,
-                                    price.toInt(),
+                                    price,
                                     apexListHeader.id
                                 )
                             )
@@ -78,7 +78,7 @@ class AddApexItemDialogFragment(
                                     apexItem.id,
                                     serial,
                                     date,
-                                    price.toInt(),
+                                    price,
                                     apexListHeader.id
                                 )
                             )
@@ -119,7 +119,6 @@ class AddApexItemDialogFragment(
             override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
                 if( p1 == KeyEvent.KEYCODE_BACK )
                 {
-                    requireActivity().onBackPressed()
                     return true
 
                 }

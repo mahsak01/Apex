@@ -19,11 +19,18 @@ class ApexRepositoryImplement(private val apexLocalDataSource: ApexDataSource) :
     override fun getApexItem(id: Long): Single<List<ApexItem>?> =
         apexLocalDataSource.getApexItem(id)
 
+    override fun getApexListHeader(
+        name: String,
+        isInvoice: Boolean
+    ): Single<List<ApexListHeader>?> =
+        apexLocalDataSource.getApexListHeader(name, isInvoice)
+
+
     override fun deleteApexItem(apexItem: ApexItem): Completable =
         apexLocalDataSource.deleteApexItem(apexItem)
 
     override fun updateApexItem(apexItem: ApexItem): Completable =
-      apexLocalDataSource.updateApexItem(apexItem)
+        apexLocalDataSource.updateApexItem(apexItem)
 
     override fun addApexItem(apexItem: ApexItem): Completable =
         apexLocalDataSource.addApexItem(apexItem)
