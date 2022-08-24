@@ -21,11 +21,13 @@ import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.FragmentApexListHeaderBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListener {
+class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListener,
+    SortApexListHeaderDialogFragment.EventListeners {
     private lateinit var binding: FragmentApexListHeaderBinding
     private val viewModel: ApexViewModel by viewModel()
     private var adapter: ApexListHeaderItemAdapter? = null
     private val args: ApexListHeaderFragmentArgs by navArgs()
+    private var sort = 2131231375
 
 
     override fun onResume() {
@@ -75,7 +77,7 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
         }
 
         binding.fragmentApexListHeaderSortBtn.setOnClickListener {
-            val sortDialogFragment = ApexSortDialogFragment()
+            val sortDialogFragment = SortApexListHeaderDialogFragment(sort, this)
             sortDialogFragment.show(requireActivity().supportFragmentManager, null)
         }
         binding.fragmentApexListHeaderAddBtn.setOnClickListener {
@@ -141,7 +143,9 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
                 binding.fragmentApexListHeaderApexListRv.visibility = View.VISIBLE
                 binding.fragmentApexListHeaderApexListRv.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = ApexListHeaderItemAdapter(it as ArrayList<ApexListHeader>, this,args.namePage)
+                adapter =
+                    ApexListHeaderItemAdapter(it as ArrayList<ApexListHeader>, this, args.namePage)
+                adapter?.sort(sort)
                 binding.fragmentApexListHeaderApexListRv.adapter = adapter
                 binding.fragmentApexListHeaderEmptyLayout.root.visibility = View.GONE
             } else {
@@ -163,13 +167,17 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
     }
 
     override fun openEditBottomSheet(apexListHeader: ApexListHeader) {
-        var bottomSheetDialog = EditApexBottomSheetFragment(apexListHeader,args.namePage)
+        var bottomSheetDialog = EditApexBottomSheetFragment(apexListHeader, args.namePage)
         bottomSheetDialog.show(requireFragmentManager(), "bottomSheetDialog")
     }
 
     override fun deleteApexListHeader(apexListHeader: ApexListHeader) {
         viewModel.deleteApexListHeader(apexListHeader)
-        Toast.makeText(requireContext(), "گروه ${args.namePage.getValue()} حذف شد", Toast.LENGTH_SHORT)
+        Toast.makeText(
+            requireContext(),
+            "گروه ${args.namePage.getValue()} حذف شد",
+            Toast.LENGTH_SHORT
+        )
             .show()
     }
 
@@ -192,5 +200,11 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
             binding.fragmentApexListHeaderApexListRv.visibility = View.VISIBLE
 
         }
+    }
+
+    override fun changeSort(id: Int) {
+        this.sort = id
+        if (adapter != null)
+            adapter?.sort(id)
     }
 }

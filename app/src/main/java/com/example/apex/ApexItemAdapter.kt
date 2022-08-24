@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.apex.common.MenuStatus
-import com.example.apex.common.NamePage
-import com.example.apex.common.differenceDates
-import com.example.apex.common.priceInterests
+import com.example.apex.common.*
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.LayoutApexItemBinding
@@ -31,9 +28,12 @@ class ApexItemAdapter(
         fun binding(apexItem: ApexItem) {
             val differenceDates = differenceDates(apexListHeader.date, apexItem.date)
 
-            binding.layoutApexItemApexItemSerialTv.text = "ُسریال ${namePage.getValue()}: " + apexItem.serial
-            binding.layoutApexItemApexItemDateTv.text = "تاریخ ${namePage.getValue()}: " + apexItem.date
-            binding.layoutApexItemApexItemPriceTv.text = "مبلغ ${namePage.getValue()}: " + apexItem.price
+            binding.layoutApexItemApexItemSerialTv.text =
+                "ُسریال ${namePage.getValue()}: " + apexItem.serial
+            binding.layoutApexItemApexItemDateTv.text =
+                "تاریخ ${namePage.getValue()}: " + apexItem.date
+            binding.layoutApexItemApexItemPriceTv.text =
+                "مبلغ ${namePage.getValue()}: " + apexItem.price
             binding.layoutApexItemApexItemPercentPriceTv.text =
                 "مبلغ بهره: " + priceInterests(
                     apexListHeader.percent,
@@ -57,9 +57,12 @@ class ApexItemAdapter(
         @SuppressLint("SetTextI18n")
         fun binding(apexItem: ApexItem) {
             val differenceDates = differenceDates(apexListHeader.date, apexItem.date)
-            binding.layoutApexItemSwipeApexItemSerialTv.text = "ُسریال ${namePage.getValue()}: " + apexItem.serial
-            binding.layoutApexItemSwipeApexItemDateTv.text = "تاریخ ${namePage.getValue()}: " + apexItem.date
-            binding.layoutApexItemSwipeApexItemPriceTv.text = "مبلغ ${namePage.getValue()}: " + apexItem.price
+            binding.layoutApexItemSwipeApexItemSerialTv.text =
+                "ُسریال ${namePage.getValue()}: " + apexItem.serial
+            binding.layoutApexItemSwipeApexItemDateTv.text =
+                "تاریخ ${namePage.getValue()}: " + apexItem.date
+            binding.layoutApexItemSwipeApexItemPriceTv.text =
+                "مبلغ ${namePage.getValue()}: " + apexItem.price
             binding.layoutApexItemSwipeApexItemPercentPriceTv.text =
                 "مبلغ بهره: " + priceInterests(
                     apexListHeader.percent,
@@ -131,6 +134,16 @@ class ApexItemAdapter(
     fun closeMenu(position: Int) {
         this.apexItemList[position].isShowMenu = false
         notifyItemChanged(position)
+    }
+
+    fun sort(id: Int) {
+        when (id) {
+            2131231375 -> apexItemList.sortBy { getTimeOfDate(it.date) }
+            2131231377 -> apexItemList.sortBy { it.price }
+            2131231376 -> apexItemList.sortByDescending { it.price }
+        }
+        notifyDataSetChanged()
+
     }
 
     interface EventListener {

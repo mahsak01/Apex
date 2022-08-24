@@ -135,7 +135,7 @@ class AddApexListHeaderFragment() :
                                     apexListPrice.toInt(),
                                     0,
                                     args.namePage==NamePage.INVOICE,
-                                    0,
+                                    args.apexListHeader!!.numberItem,
                                     description
                                 )
 

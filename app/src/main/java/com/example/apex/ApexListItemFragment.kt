@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener,
-    ApexItemAdapter.EventListener {
+    ApexItemAdapter.EventListener,SortApexItemDialogFragment.EventListeners {
 
     private lateinit var binding: FragmentApexItemsBinding
 
@@ -32,6 +32,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
     private val viewModel: ApexViewModel by viewModel()
 
     private var adapter: ApexItemAdapter? = null
+    private var sort=2131231375
 
     override fun onResume() {
         super.onResume()
@@ -49,7 +50,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
             bottomSheetDialog.show(requireFragmentManager(), "bottomSheetDialog")
         }
         binding.fragmentApexItemsSortBtn.setOnClickListener {
-            val sortDialogFragment = ApexSortDialogFragment()
+            val sortDialogFragment = SortApexItemDialogFragment(sort,this)
             sortDialogFragment.show(requireActivity().supportFragmentManager, null)
         }
         binding.fragmentApexItemsAddItemBtn.setOnClickListener {
@@ -132,6 +133,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
                 binding.fragmentApexItemsApexItemsRv.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 adapter = ApexItemAdapter(it as ArrayList<ApexItem>, this, args.apexListHeader,args.namePage)
+                adapter?.sort(sort)
                 binding.fragmentApexItemsApexItemsRv.adapter = adapter
                 binding.fragmentChequeEmptyLayout.root.visibility = View.GONE
             } else {
@@ -154,8 +156,8 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
     private fun getMinDate(array: List<ApexItem>): String {
         var min = array[0].date
         for (item in array) {
-            var minSecond = SimpleDateFormat("yyyy/MM/dd").parse(min)
-            var temp = SimpleDateFormat("yyyy/MM/dd").parse(item.date)
+            val minSecond = SimpleDateFormat("yyyy/MM/dd").parse(min)
+            val temp = SimpleDateFormat("yyyy/MM/dd").parse(item.date)
             if (temp < minSecond)
                 min = item.date
         }
@@ -165,8 +167,8 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
     private fun getMaxDate(array: List<ApexItem>): String {
         var max = array[0].date
         for (item in array) {
-            var minSecond = SimpleDateFormat("yyyy/MM/dd").parse(max)
-            var temp = SimpleDateFormat("yyyy/MM/dd").parse(item.date)
+            val minSecond = SimpleDateFormat("yyyy/MM/dd").parse(max)
+            val temp = SimpleDateFormat("yyyy/MM/dd").parse(item.date)
             if (temp > minSecond)
                 max = item.date
         }
@@ -237,7 +239,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         return false
     }
 
-    fun checkDate(date: String): Boolean {
+    private fun checkDate(date: String): Boolean {
         if (differenceDates(args.apexListHeader.date, date) >= 0)
             return true
         return false
@@ -254,5 +256,11 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         viewModel.deleteApexItem(apexItem, args.apexListHeader)
         Toast.makeText(requireContext(), "${args.namePage.getValue()} حذف شد", Toast.LENGTH_SHORT)
             .show()
+    }
+
+    override fun changeSort(id: Int) {
+        this.sort=id
+        if (adapter!=null)
+            adapter?.sort(id)
     }
 }

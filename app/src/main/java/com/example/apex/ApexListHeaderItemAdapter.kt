@@ -6,14 +6,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apex.common.MenuStatus
 import com.example.apex.common.NamePage
+import com.example.apex.common.getTimeOfDate
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.LayoutApexListItemBinding
 import com.example.apex.databinding.LayoutApexListItemSwipeBinding
 
-class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, val eventListener: EventListener,val namePage: NamePage) :
+class ApexListHeaderItemAdapter(
+    var apexListHeader: ArrayList<ApexListHeader>,
+    val eventListener: EventListener,
+    val namePage: NamePage
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val allApexListHeader=apexListHeader
+    private val allApexListHeader = apexListHeader
 
     inner class ViewHolder(val binding: LayoutApexListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -108,16 +113,17 @@ class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, v
         this.apexListHeader[position].isShowMenu = false
         notifyItemChanged(position)
     }
-    fun search(word:String):Int{
-        apexListHeader=allApexListHeader
-        var apexListHeaderSearch=ArrayList<ApexListHeader>()
+
+    fun search(word: String): Int {
+        apexListHeader = allApexListHeader
+        var apexListHeaderSearch = ArrayList<ApexListHeader>()
 
         for (item in apexListHeader)
             if (item.name.contains(word))
                 apexListHeaderSearch.add(item)
 
-        apexListHeader=apexListHeaderSearch
-        if(apexListHeader.size==0)
+        apexListHeader = apexListHeaderSearch
+        if (apexListHeader.size == 0)
             eventListener.emptySearch(true)
         else
             eventListener.emptySearch(false)
@@ -125,10 +131,20 @@ class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, v
         return apexListHeaderSearch.size
     }
 
-    interface EventListener{
+    fun sort(id: Int) {
+        when (id) {
+            2131231375 -> apexListHeader.sortBy { getTimeOfDate(it.date) }
+            2131231377 -> apexListHeader.sortBy { it.price }
+            2131231376 -> apexListHeader.sortByDescending { it.price }
+            2131231378 -> apexListHeader.sortBy { it.numberItem }
+        }
+        notifyDataSetChanged()
+    }
+
+    interface EventListener {
         fun openEditBottomSheet(apexListHeader: ApexListHeader)
         fun deleteApexListHeader(apexListHeader: ApexListHeader)
         fun editApexListHeader(apexListHeader: ApexListHeader)
-        fun emptySearch(show:Boolean)
+        fun emptySearch(show: Boolean)
     }
 }

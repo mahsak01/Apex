@@ -4,6 +4,10 @@ import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
 import java.text.SimpleDateFormat
 
+fun getTimeOfDate(time1: String):Long{
+    val date1 = SimpleDateFormat("yyyy/MM/dd").parse(time1)
+    return date1.time
+}
 fun differenceDates(time1: String, time2: String): Long {
 
     val date1 = SimpleDateFormat("yyyy/MM/dd").parse(time1)
