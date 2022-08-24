@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -41,16 +41,16 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:paddingTop="5dp"
                     android:id="@+id/fragmentBottomSheetEditApex_apexListHeaderNameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
-                    tools:text="گروه فاکتور اول"
+                    android:paddingTop="5dp"
                     android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="گروه فاکتور اول" />
 
                 <TextView
                     android:id="@+id/fragmentBottomSheetEditApex_apexListHeaderAccountNameTv"
@@ -60,11 +60,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:drawablePadding="10dp"
-                    tools:text="طرف حساب: "
                     android:textSize="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_apexListHeaderNameTv" />
+                    app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_apexListHeaderNameTv"
+                    tools:text="طرف حساب: " />
 
                 <View
                     android:id="@+id/view4"
@@ -84,20 +84,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view4">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/fragmentBottomSheetEditApex_sumApexLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
                         android:paddingTop="8dp"
-                        android:text="جمع فاکتورها"
+                        tools:text="جمع فاکتورها"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +117,7 @@
                         android:weightSum="3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2">
+                        app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_sumApexLabel">
 
                         <FrameLayout
                             android:id="@+id/frameLayout2"
@@ -135,13 +136,13 @@
                                 android:id="@+id/fragmentBottomSheetEditApex_apexListHeaderPriceTv"
                                 android:layout_width="203dp"
                                 android:layout_height="wrap_content"
-                                tools:text="10000ریال"
                                 android:textAlignment="center"
                                 android:textSize="18dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.449"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                                tools:text="0ریال" />
 
                             <ImageView
                                 android:id="@+id/imageView3"
@@ -169,7 +170,7 @@
                                 android:id="@+id/fragmentBottomSheetEditApex_apexListHeaderNumberTv"
                                 android:layout_width="84dp"
                                 android:layout_height="wrap_content"
-                                android:text="1 مورد"
+                                android:text="0 مورد"
                                 android:textAlignment="center"
                                 android:textColor="@color/green"
                                 android:textSize="18dp"
@@ -187,18 +188,18 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/fragmentBottomSheetEditApex_dateApexLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:drawableStart="@drawable/ic_baseline_today_24"
                         android:drawablePadding="10dp"
-                        android:text="تاریخ راس فاکتور"
+                        tools:text="تاریخ راس فاکتور"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                        app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_priceInterestTv" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout2"
@@ -208,7 +209,7 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5">
+                        app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_dateApexLabel">
 
 
                         <FrameLayout
@@ -263,10 +264,35 @@
 
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/fragmentBottomSheetEditApex_priceAndDayTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="مبلغ کل 0 ریال 0 روزه"
+                        android:textSize="17sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+                    <TextView
+                        android:id="@+id/fragmentBottomSheetEditApex_priceInterestTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="مبلغ کل بهره 0 ریال"
+                        android:textSize="17sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_priceAndDayTv" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
                 <View
-                    android:id="@+id/view5"
+                    android:id="@+id/view7"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="16dp"
@@ -275,22 +301,23 @@
                     android:background="@color/gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_lastInformation"
                     tools:ignore="MissingConstraints" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:hint="توضیحات"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view5"
+                    app:layout_constraintTop_toBottomOf="@+id/view7"
                     tools:ignore="MissingConstraints">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -305,6 +332,216 @@
                         android:maxLines="5"
                         android:minLines="5" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/fragmentBottomSheetEditApex_lastInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                    tools:ignore="NotSibling">
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                        tools:ignore="MissingConstraints" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:weightSum="2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view5"
+                        tools:ignore="MissingConstraints">
+
+                        <TextView
+                            android:id="@+id/fragmentBottomSheetEditApex_lastPriceApexLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="مبلغ آخرین فاکتور"
+                            android:textSize="19sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+                        <FrameLayout
+                            android:id="@+id/frameLayout7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/framelayout_apex_item_background"
+                            android:backgroundTint="@color/light_gray"
+                            android:padding="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView6"
+                            app:layout_constraintTop_toTopOf="@+id/textView6"
+                            tools:ignore="MissingConstraints">
+
+
+                            <TextView
+                                android:id="@+id/fragmentBottomSheetEditApex_lastPriceTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:singleLine="true"
+                                android:text="100000 ریال"
+                                android:textSize="18dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:weightSum="2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+                        <TextView
+                            android:id="@+id/fragmentBottomSheetEditApex_lastDateApexLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            tools:text="تاریخ اخرین فاکتور"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/frameLayout7"
+                            tools:textSize="19sp" />
+
+                        <FrameLayout
+                            android:id="@+id/frameLayout6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/framelayout_apex_item_background"
+                            android:backgroundTint="@color/light_gray"
+                            android:padding="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView7"
+                            tools:ignore="MissingConstraints">
+
+                            <TextView
+                                android:id="@+id/fragmentBottomSheetEditApex_lastDateFl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:singleLine="true"
+                                android:text="1401/5/25"
+                                android:textSize="18dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:weightSum="2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                        tools:ignore="MissingConstraints">
+
+                        <TextView
+                            android:id="@+id/fragmentBottomSheetEditApex_lastPriceInterestApexLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            tools:text="بهره آخرین فاکتور"
+                            android:textSize="19sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/frameLayout6" />
+
+                        <FrameLayout
+                            android:id="@+id/frameLayout9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/framelayout_apex_item_background"
+                            android:backgroundTint="@color/light_gray"
+                            android:padding="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView10"
+                            tools:ignore="MissingConstraints">
+
+
+                            <TextView
+                                android:id="@+id/fragmentBottomSheetEditApex_lastPriceInterestTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:singleLine="true"
+                                android:text="100000 ریال"
+                                android:textSize="18dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+
+                        </FrameLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

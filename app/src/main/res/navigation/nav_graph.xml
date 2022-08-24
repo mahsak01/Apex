@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@+id/mainFragment">
     <fragment
+        tools:layout="@layout/fragment_main"
         android:id="@+id/mainFragment"
         android:name="com.example.apex.MainFragment"
         android:label="MainFragment" >
@@ -13,14 +15,19 @@
             app:destination="@id/apexListHeaderFragment" />
     </fragment>
     <fragment
+        tools:layout="@layout/fragment_apex_list_header"
         android:id="@+id/apexListHeaderFragment"
         android:name="com.example.apex.ApexListHeaderFragment"
         android:label="ApexListHeaderFragment" >
         <action
             android:id="@+id/action_apexListHeaderFragment_to_addApexListHeaderFragment"
             app:destination="@id/addApexListHeaderFragment" />
+        <argument
+            android:name="namePage"
+            app:argType="com.example.apex.common.NamePage" />
     </fragment>
     <fragment
+        tools:layout="@layout/fragment_add_apex_list_header"
         android:id="@+id/addApexListHeaderFragment"
         android:name="com.example.apex.AddApexListHeaderFragment"
         android:label="AddApexListHeaderFragment" >
@@ -37,14 +44,25 @@
         <action
             android:id="@+id/action_addApexListHeaderFragment_to_apexListItemFragment"
             app:destination="@id/apexListItemFragment" />
+        <action
+            android:id="@+id/action_addApexListHeaderFragment_to_apexListHeaderFragment"
+            app:destination="@id/apexListHeaderFragment" />
     </fragment>
     <fragment
+        tools:layout="@layout/fragment_apex_items"
         android:id="@+id/apexListItemFragment"
         android:name="com.example.apex.ApexListItemFragment"
         android:label="ApexListItemFragment" >
         <argument
             android:name="apexListHeader"
             app:argType="com.example.apex.data.model.ApexListHeader" />
+        <action
+            android:id="@+id/action_apexListItemFragment_to_apexListHeaderFragment2"
+            app:destination="@id/apexListHeaderFragment" />
+        <argument
+            android:name="namePage"
+            app:argType="com.example.apex.common.NamePage" />
+
     </fragment>
 
 </navigation>

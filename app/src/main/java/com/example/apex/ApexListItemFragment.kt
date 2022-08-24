@@ -1,22 +1,29 @@
 package com.example.apex
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.apex.common.differenceDates
+import com.example.apex.common.getLastPrice
+import com.example.apex.common.totalPrice
 import com.example.apex.data.model.ApexItem
 import com.example.apex.databinding.FragmentApexItemsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener,ApexItemAdapter.EventListener {
+class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener,
+    ApexItemAdapter.EventListener {
 
     private lateinit var binding: FragmentApexItemsBinding
 
@@ -28,22 +35,63 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
 
     override fun onResume() {
         super.onResume()
+        this.view?.isFocusableInTouchMode = true;
+        this.view?.requestFocus();
         viewModel.getApexItems(args.apexListHeader)
         setListener()
         initializeSwiping()
         setInformation()
     }
 
-    private fun setListener(){
+    private fun setListener() {
         binding.fragmentApexItemsApexListHeaderName.setOnClickListener {
-            var bottomSheetDialog = EditApexBottomSheetFragment(args.apexListHeader)
+            var bottomSheetDialog = EditApexBottomSheetFragment(args.apexListHeader,args.namePage)
             bottomSheetDialog.show(requireFragmentManager(), "bottomSheetDialog")
         }
+        binding.fragmentApexItemsSortBtn.setOnClickListener {
+            val sortDialogFragment = ApexSortDialogFragment()
+            sortDialogFragment.show(requireActivity().supportFragmentManager, null)
+        }
         binding.fragmentApexItemsAddItemBtn.setOnClickListener {
-            val addApexItemDialogFragment = AddApexItemDialogFragment(args.apexListHeader,this,null)
+            val addApexItemDialogFragment =
+                AddApexItemDialogFragment(args.apexListHeader, this, null)
             addApexItemDialogFragment.show(requireActivity().supportFragmentManager, null)
         }
+        binding.fragmentApexItemsBackBtn.setOnClickListener {
+
+            this.findNavController()
+                .navigate(
+                    ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(args.namePage)
+                )
+        }
+        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
+            View.OnKeyListener {
+            override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == KeyEvent.KEYCODE_BACK) {
+                    findNavController()
+                        .navigate(
+                            ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(args.namePage)
+                        )
+
+                    return true
+                }
+                return false
+            }
+
+            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == KeyEvent.KEYCODE_BACK) {
+                    findNavController()
+                        .navigate(
+                            ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(args.namePage)
+                        )
+                    return true
+
+                }
+                return false
+            }
+        })
     }
+
     private fun initializeSwiping() {
         val simpleCallback: ItemTouchHelper.SimpleCallback = object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
@@ -83,7 +131,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
                 binding.fragmentApexItemsApexItemsRv.visibility = View.VISIBLE
                 binding.fragmentApexItemsApexItemsRv.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = ApexItemAdapter(it as ArrayList<ApexItem>,this)
+                adapter = ApexItemAdapter(it as ArrayList<ApexItem>, this, args.apexListHeader,args.namePage)
                 binding.fragmentApexItemsApexItemsRv.adapter = adapter
                 binding.fragmentChequeEmptyLayout.root.visibility = View.GONE
             } else {
@@ -147,29 +195,64 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         this.binding = FragmentApexItemsBinding.inflate(layoutInflater, container, false)
         return this.binding.root
     }
 
     override fun addApexItem(apexItem: ApexItem) {
-        viewModel.addApexItem(apexItem,args.apexListHeader)
+        if (!checkPrice(apexItem.price))
+            Toast.makeText(
+                requireContext(),
+                "مبلغ ${args.namePage.getValue()} از مبلغ باقی مانده بیشتر است",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        else if (!checkDate(apexItem.date))
+            Toast.makeText(
+                requireContext(),
+                "تاریخ ${args.namePage.getValue()} از تاریخ راس زودتر است",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        else if (viewModel.searchApexItem(apexItem))
+            viewModel.addApexItem(apexItem, args.apexListHeader)
+        else
+            Toast.makeText(requireContext(), "${args.namePage.getValue()} با این سریال وجود دارد", Toast.LENGTH_SHORT)
+                .show()
     }
 
     override fun updateApexItem(apexItem: ApexItem) {
-        viewModel.updateApexItem(apexItem,args.apexListHeader)
+        viewModel.updateApexItem(apexItem, args.apexListHeader)
 
     }
 
+    private fun checkPrice(price: Int): Boolean {
+        if (getLastPrice(
+                args.apexListHeader,
+                totalPrice(viewModel.apexItemsLiveData.value!!)
+            ) >= price
+        )
+            return true
+        return false
+    }
+
+    fun checkDate(date: String): Boolean {
+        if (differenceDates(args.apexListHeader.date, date) >= 0)
+            return true
+        return false
+    }
+
     override fun openEditDialog(apexItem: ApexItem) {
-        val addApexItemDialogFragment = AddApexItemDialogFragment(args.apexListHeader,this,apexItem)
+        val addApexItemDialogFragment =
+            AddApexItemDialogFragment(args.apexListHeader, this, apexItem)
         addApexItemDialogFragment.show(requireActivity().supportFragmentManager, null)
 
     }
 
     override fun deleteApexItem(apexItem: ApexItem) {
-        viewModel.deleteApexItem(apexItem,args.apexListHeader)
-        Toast.makeText(requireContext(), "فاکتور حذف شد", Toast.LENGTH_SHORT)
+        viewModel.deleteApexItem(apexItem, args.apexListHeader)
+        Toast.makeText(requireContext(), "${args.namePage.getValue()} حذف شد", Toast.LENGTH_SHORT)
             .show()
     }
 }

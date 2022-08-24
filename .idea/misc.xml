@@ -22,7 +22,8 @@
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_add_apex_list_header.xml" value="0.209375" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_apex_items.xml" value="0.1" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_apex_list_header.xml" value="0.22" />
-        <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_bottom_sheet_edit_apex.xml" value="0.1" />
+        <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_apex_sort_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_bottom_sheet_edit_apex.xml" value="0.209375" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_bottom_sheet_show_text.xml" value="0.15" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_cheque.xml" value="0.18" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_cheque_item.xml" value="0.33" />
@@ -34,7 +35,7 @@
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_invoice_add_list.xml" value="0.25" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_invoice_item.xml" value="0.33" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/fragment_main.xml" value="0.209375" />
-        <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/layout_apex_item.xml" value="0.1" />
+        <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/layout_apex_item.xml" value="0.25" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/layout_apex_item_swipe.xml" value="0.209375" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/layout_apex_list_item.xml" value="0.33" />
         <entry key="..\:/Users/mah80/StudioProjects/Apex/app/src/main/res/layout/layout_apex_list_item_swipe.xml" value="0.1" />

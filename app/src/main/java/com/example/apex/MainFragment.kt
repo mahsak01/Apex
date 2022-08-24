@@ -1,11 +1,15 @@
 package com.example.apex
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.apex.common.ModePage
+import com.example.apex.common.NamePage
 import com.example.apex.databinding.FragmentMainBinding
 
 
@@ -15,16 +19,49 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        this.view?.isFocusableInTouchMode = true
+        this.view?.requestFocus()
         setListeners()
     }
 
     private fun setListeners(){
         binding.fragmentMainInvoiceBtn.setOnClickListener{
-            this.findNavController().navigate(R.id.action_mainFragment_to_apexListHeaderFragment)
+            this.findNavController()
+                .navigate(
+                    MainFragmentDirections.actionMainFragmentToApexListHeaderFragment(
+                         NamePage.INVOICE
+                    )
+                )
         }
         binding.fragmentMainChequeBtn.setOnClickListener{
-            this.findNavController().navigate(R.id.action_mainFragment_to_apexListHeaderFragment)
+            this.findNavController()
+                .navigate(
+                    MainFragmentDirections.actionMainFragmentToApexListHeaderFragment(
+                        NamePage.CHEQUE
+                    )
+                )
         }
+        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
+            View.OnKeyListener {
+            override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+                if( p1 == KeyEvent.KEYCODE_BACK )
+                {
+                    requireActivity().onBackPressed()
+                    return true
+                }
+                return false
+            }
+
+            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
+                if( p1 == KeyEvent.KEYCODE_BACK )
+                {
+                    requireActivity().onBackPressed()
+                    return true
+
+                }
+                return false
+            }
+        })
     }
 
 

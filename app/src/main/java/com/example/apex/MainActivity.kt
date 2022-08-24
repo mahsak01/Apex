@@ -17,8 +17,3 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-//        val navHostFragment = supportFragmentManager.findFragmentById(
-//            R.id.activityMain_navHostContainer
-//        ) as NavHostFragment
-//this.findNavController().navigate(R.id.action_chequeFragment_to_mainFragment)
-//this.requireActivity().onBackPressed()

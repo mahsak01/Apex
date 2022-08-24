@@ -19,11 +19,7 @@ data class ApexItem(
     val id: Long,
     val serial: String,
     val date: String,
-    @ColumnInfo(name = "apex_day")
-    val apexDay: Long,
     val price: Int,
-    @ColumnInfo(name = "price_interest")
-    val priceInterest: Int,
     @ColumnInfo(name = "Apex_list_header_item")
     var ApexListHeaderItem:Long
 

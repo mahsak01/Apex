@@ -1,10 +1,14 @@
 package com.example.apex
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apex.common.MenuStatus
+import com.example.apex.common.NamePage
+import com.example.apex.common.differenceDates
+import com.example.apex.common.priceInterests
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.LayoutApexItemBinding
@@ -13,7 +17,9 @@ import java.util.ArrayList
 
 class ApexItemAdapter(
     private val apexItemList: ArrayList<ApexItem>,
-    private val eventListener: EventListener
+    private val eventListener: EventListener,
+    private val apexListHeader: ApexListHeader,
+    private val namePage: NamePage
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -21,13 +27,22 @@ class ApexItemAdapter(
     inner class ViewHolder(val binding: LayoutApexItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun binding(apexItem: ApexItem) {
-            binding.layoutApexItemApexItemSerialTv.text = "ُسریال فاکتور: " + apexItem.serial
-            binding.layoutApexItemApexItemDateTv.text = "تاریخ فاکتور: " + apexItem.date
-            binding.layoutApexItemApexItemPriceTv.text = "مبلغ فاکتور: " + apexItem.price
+            val differenceDates = differenceDates(apexListHeader.date, apexItem.date)
+
+            binding.layoutApexItemApexItemSerialTv.text = "ُسریال ${namePage.getValue()}: " + apexItem.serial
+            binding.layoutApexItemApexItemDateTv.text = "تاریخ ${namePage.getValue()}: " + apexItem.date
+            binding.layoutApexItemApexItemPriceTv.text = "مبلغ ${namePage.getValue()}: " + apexItem.price
             binding.layoutApexItemApexItemPercentPriceTv.text =
-                "مبلغ بهره: " + apexItem.priceInterest
-            binding.layoutApexItemApexItemDayTv.text = "تعداد روز: " + apexItem.apexDay + " روز"
+                "مبلغ بهره: " + priceInterests(
+                    apexListHeader.percent,
+                    apexItem.price.toInt(),
+                    differenceDates
+                )
+            binding.layoutApexItemApexItemDayTv.text =
+                "تعداد روز: $differenceDates روز"
+
             binding.layoutApexItemApexItem.setOnClickListener {
                 eventListener.openEditDialog(apexItem)
                 notifyItemChanged(apexItemList.indexOf(apexItem))
@@ -39,14 +54,20 @@ class ApexItemAdapter(
     inner class ViewHolderSwipe(val binding: LayoutApexItemSwipeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun binding(apexItem: ApexItem) {
-            binding.layoutApexItemSwipeApexItemSerialTv.text = "ُسریال فاکتور: " + apexItem.serial
-            binding.layoutApexItemSwipeApexItemDateTv.text = "تاریخ فاکتور: " + apexItem.date
-            binding.layoutApexItemSwipeApexItemPriceTv.text = "مبلغ فاکتور: " + apexItem.price
+            val differenceDates = differenceDates(apexListHeader.date, apexItem.date)
+            binding.layoutApexItemSwipeApexItemSerialTv.text = "ُسریال ${namePage.getValue()}: " + apexItem.serial
+            binding.layoutApexItemSwipeApexItemDateTv.text = "تاریخ ${namePage.getValue()}: " + apexItem.date
+            binding.layoutApexItemSwipeApexItemPriceTv.text = "مبلغ ${namePage.getValue()}: " + apexItem.price
             binding.layoutApexItemSwipeApexItemPercentPriceTv.text =
-                "مبلغ بهره: " + apexItem.priceInterest
+                "مبلغ بهره: " + priceInterests(
+                    apexListHeader.percent,
+                    apexItem.price.toInt(),
+                    differenceDates
+                )
             binding.layoutApexItemSwipeApexItemDayTv.text =
-                "تعداد روز: " + apexItem.apexDay + " روز"
+                "تعداد روز: $differenceDates روز"
             binding.layoutApexItemSwipeDeleteBtn.setOnClickListener {
                 eventListener.deleteApexItem(apexItem)
             }

@@ -5,27 +5,28 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apex.common.MenuStatus
+import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.LayoutApexListItemBinding
 import com.example.apex.databinding.LayoutApexListItemSwipeBinding
 
-class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, val eventListener: EventListener) :
+class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, val eventListener: EventListener,val namePage: NamePage) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val allApexListHeader=apexListHeader
+    private val allApexListHeader=apexListHeader
 
     inner class ViewHolder(val binding: LayoutApexListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun binding(apexListHeader: ApexListHeader) {
             binding.layoutApexListItemApexListHeaderNameTv.text =
-                "گروه فاکتور: " + apexListHeader.name
+                "گروه ${namePage.getValue()}: " + apexListHeader.name
             binding.layoutApexListItemApexListHeaderNumberInvoiceTv.text =
-                "تعداد فاکتور: " + apexListHeader.numberItem.toString() + " مورد"
+                "تعداد ${namePage.getValue()}: " + apexListHeader.numberItem.toString() + " مورد"
             binding.layoutApexListItemApexListHeaderTotalPriceTv.text =
                 "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
             binding.layoutApexListItemApexListHeaderDateTv.text =
-                "تاریخ راس فاکتور: " + apexListHeader.date
+                "تاریخ راس ${namePage.getValue()}: " + apexListHeader.date
             binding.layoutApexListItemApexListHeader.setOnClickListener {
                 eventListener.openEditBottomSheet(apexListHeader)
             }
@@ -37,13 +38,13 @@ class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, v
 
         fun binding(apexListHeader: ApexListHeader) {
             binding.layoutApexListItemSwipeApexListHeaderNameTv.text =
-                "گروه فاکتور: " + apexListHeader.name
+                "گروه ${namePage.getValue()}: " + apexListHeader.name
             binding.layoutApexListItemSwipeApexListHeaderNumberInvoiceTv.text =
-                "تعداد فاکتور: " + apexListHeader.numberItem.toString() + " مورد"
+                "تعداد ${namePage.getValue()}: " + apexListHeader.numberItem.toString() + " مورد"
             binding.layoutApexListItemSwipeApexListHeaderTotalPriceTv.text =
                 "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
             binding.layoutApexListItemSwipeApexListHeaderDateTv.text =
-                "تاریخ راس فاکتور: " + apexListHeader.date
+                "تاریخ راس ${namePage.getValue()}: " + apexListHeader.date
             binding.layoutApexListItemSwipeApexListHeader.setOnClickListener {
                 eventListener.openEditBottomSheet(apexListHeader)
             }
@@ -107,7 +108,7 @@ class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, v
         this.apexListHeader[position].isShowMenu = false
         notifyItemChanged(position)
     }
-    fun search(word:String){
+    fun search(word:String):Int{
         apexListHeader=allApexListHeader
         var apexListHeaderSearch=ArrayList<ApexListHeader>()
 
@@ -121,6 +122,7 @@ class ApexListHeaderItemAdapter(var apexListHeader: ArrayList<ApexListHeader>, v
         else
             eventListener.emptySearch(false)
         notifyDataSetChanged()
+        return apexListHeaderSearch.size
     }
 
     interface EventListener{

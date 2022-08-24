@@ -20,8 +20,9 @@ data class ApexListHeader(
     val percent: Int,
     @ColumnInfo(name = "apex_day")
     val apexDay: Int,
+    val price:Int,
     @ColumnInfo(name = "total_price")
-    val totalPrice: Int,
+    var totalPrice: Int,
     @ColumnInfo(name = "is_invoice")
     var isInvoice: Boolean,
     @ColumnInfo(name = "number_item")

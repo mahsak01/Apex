@@ -1,7 +1,10 @@
 package com.example.apex
 
+import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +16,6 @@ import com.example.apex.common.ModePage
 import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.FragmentAddApexListHeaderBinding
-import kotlinx.android.synthetic.main.fragment_add_apex_list_header.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddApexListHeaderFragment() :
@@ -25,6 +27,8 @@ class AddApexListHeaderFragment() :
 
     override fun onResume() {
         super.onResume()
+        this.view?.isFocusableInTouchMode = true
+        this.view?.requestFocus()
         setListeners()
         setInformation()
     }
@@ -35,78 +39,102 @@ class AddApexListHeaderFragment() :
             "نام گروه " + args.namePage.getValue()
         binding.fragmentApexAddListHeaderSumApexListHeaderTv.hint =
             "جمع " + args.namePage.getValue() + " ها"
-        binding.fragmentApexAddListHeaderDateTv.text =
+        binding.fragmentApexAddListHeaderDateApexListHeaderTv.text =
             "تاریخ راس " + args.namePage.getValue()
         if (args.modePage == ModePage.EDIT) {
-            apexDay=args.apexListHeader?.apexDay
+            apexDay = args.apexListHeader?.apexDay
             binding.fragmentApexAddListHeaderPriceAndNumberCL.visibility = View.VISIBLE
             binding.fragmentApexAddListHeaderApexListNameTI.editText?.text =
                 Editable.Factory.getInstance().newEditable(args.apexListHeader?.name)
             binding.fragmentApexAddListHeaderAccountApexListNameTI.editText?.text =
                 Editable.Factory.getInstance().newEditable(args.apexListHeader?.accountName)
+            binding.fragmentApexAddListHeaderApexListPriceTI.editText?.text =
+                Editable.Factory.getInstance().newEditable(args.apexListHeader?.price.toString())
             binding.fragmentApexAddListHeaderPercentTv.text =
                 "%" + args.apexListHeader?.percent.toString()
             binding.fragmentApexAddListHeaderNumberTv.text =
                 args.apexListHeader?.numberItem.toString() + " مورد"
             binding.fragmentApexAddListHeaderPriceTv.text =
                 args.apexListHeader?.totalPrice.toString() + " ریال"
-            binding.fragmentApexAddListHeaderDayTv.text = args.apexListHeader?.apexDay.toString()+" روز"
+            binding.fragmentApexAddListHeaderDayTv.text =
+                args.apexListHeader?.apexDay.toString() + " روز"
             binding.fragmentApexAddListHeaderDateTv.text = args.apexListHeader?.date
             binding.fragmentApexAddListHeaderDescriptionTI.editText?.text =
                 Editable.Factory.getInstance().newEditable(args.apexListHeader?.description)
         } else
             binding.fragmentApexAddListHeaderPriceAndNumberCL.visibility = View.GONE
-    }
+
+       }
 
     private fun setListeners() {
         binding.fragmentApexAddListHeaderAddBtn.setOnClickListener {
-                val apexListName =
-                    binding.fragmentApexAddListHeaderApexListNameTI.editText?.text.toString()
-                if (apexListName != "") {
-                    val accountApexListName =
-                        binding.fragmentApexAddListHeaderAccountApexListNameTI.editText?.text.toString()
-                    if (accountApexListName != "") {
+            val apexListName =
+                binding.fragmentApexAddListHeaderApexListNameTI.editText?.text.toString()
+            if (apexListName != "") {
+                val accountApexListName =
+                    binding.fragmentApexAddListHeaderAccountApexListNameTI.editText?.text.toString()
+                if (accountApexListName != "") {
+                    val apexListPrice =
+                        binding.fragmentApexAddListHeaderApexListPriceTI.editText?.text.toString()
+                    if (apexListPrice != "") {
                         if (apexDay != null) {
                             val percent =
-                                binding.fragmentApexAddListHeaderPercentTv.text.toString().replace("%", "")
+                                binding.fragmentApexAddListHeaderPercentTv.text.toString()
+                                    .replace("%", "")
                                     .toInt()
                             val description =
                                 binding.fragmentApexAddListHeaderDescriptionTI.editText?.text.toString()
-                            if (args.apexListHeader==null){
-                                val apexListHeader= ApexListHeader(
+                            if (args.apexListHeader == null) {
+
+                                val apexListHeader = ApexListHeader(
                                     0,
                                     "1401/02/05",
                                     apexListName,
                                     accountApexListName,
                                     percent,
                                     apexDay!!,
+                                    apexListPrice.toInt(),
                                     0,
-                                    true,
+                                    args.namePage==NamePage.INVOICE,
                                     0,
                                     description
                                 )
-
-                                viewModel.addApexListHeader(
-                                    apexListHeader
-                                )
-                                Toast.makeText(requireContext(), "گروه فاکتور اضافه شد", Toast.LENGTH_SHORT)
-                                    .show()
-                                this.findNavController()
-                                    .navigate(
-                                        AddApexListHeaderFragmentDirections.actionAddApexListHeaderFragmentToApexListItemFragment(
-                                            apexListHeader
-                                        )
+                                if (viewModel.searchApexListHeader(apexListHeader)){
+                                    viewModel.addApexListHeader(
+                                        apexListHeader
                                     )
-                            }else{
-                                val apexListHeader= ApexListHeader(
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "گروه ${args.namePage.getValue()} اضافه شد",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    this.findNavController()
+                                        .navigate(
+                                            AddApexListHeaderFragmentDirections.actionAddApexListHeaderFragmentToApexListItemFragment(apexListHeader,args.namePage)
+                                        )
+
+                                }else{
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "گروه ${args.namePage.getValue()} با این اسم وجود دارد",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+
+
+                            } else {
+                                val apexListHeader = ApexListHeader(
                                     args.apexListHeader!!.id,
                                     "1401/02/05",
                                     apexListName,
                                     accountApexListName,
                                     percent,
                                     apexDay!!,
+                                    apexListPrice.toInt(),
                                     0,
-                                    true,
+                                    args.namePage==NamePage.INVOICE,
                                     0,
                                     description
                                 )
@@ -114,34 +142,47 @@ class AddApexListHeaderFragment() :
                                 viewModel.updateApexListHeader(
                                     apexListHeader
                                 )
-                                Toast.makeText(requireContext(), "گروه فاکتور آپدیت شد", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    requireContext(),
+                                    "گروه ${args.namePage.getValue()} آپدیت شد",
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
                                 this.findNavController()
                                     .navigate(
-                                        AddApexListHeaderFragmentDirections.actionAddApexListHeaderFragmentToApexListItemFragment(
-                                            apexListHeader
-                                        )
+                                        AddApexListHeaderFragmentDirections.actionAddApexListHeaderFragmentToApexListItemFragment(apexListHeader,args.namePage)
                                     )
                             }
 
 
-
                         } else {
-                            Toast.makeText(requireContext(), "راس روز را وارد کنید", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                requireContext(),
+                                "راس روز را وارد کنید",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "نام طرف حساب را وارد کنید",
+                            "مبلغ کل را وارد کنید",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+
                 } else {
-                    Toast.makeText(requireContext(), "نام گروه فاکتور را وارد کنید", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(
+                        requireContext(),
+                        "نام طرف حساب را وارد کنید",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            } else {
+                Toast.makeText(requireContext(), "نام گروه ${args.namePage.getValue()} را وارد کنید", Toast.LENGTH_SHORT)
+                    .show()
             }
+        }
         binding.fragmentApexAddListHeaderDayFl.setOnClickListener {
             val dayDialogFragment = DayDialogFragment(this)
             dayDialogFragment.show(requireActivity().supportFragmentManager, null)
@@ -159,6 +200,27 @@ class AddApexListHeaderFragment() :
         binding.fragmentApexAddListHeaderBackBtn.setOnClickListener {
             this.requireActivity().onBackPressed()
         }
+        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
+            View.OnKeyListener {
+            override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+                if( p1 == KeyEvent.KEYCODE_BACK )
+                {
+                    requireActivity().onBackPressed()
+                    return true
+                }
+                return false
+            }
+
+            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
+                if( p1 == KeyEvent.KEYCODE_BACK )
+                {
+                    requireActivity().onBackPressed()
+                    return true
+
+                }
+                return false
+            }
+        })
     }
 
     override fun onCreateView(
@@ -176,15 +238,20 @@ class AddApexListHeaderFragment() :
     }
 
     private fun addPercent() {
-        if (binding.fragmentApexAddListHeaderPercentTv.text.toString().replace("%", "").toInt() != 100)
+        if (binding.fragmentApexAddListHeaderPercentTv.text.toString().replace("%", "")
+                .toInt() != 100
+        )
             binding.fragmentApexAddListHeaderPercentTv.text =
                 "%" + (binding.fragmentApexAddListHeaderPercentTv.text.toString().replace("%", "")
                     .toInt() + 1).toString()
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun removePercent() {
-        if (binding.fragmentApexAddListHeaderPercentTv.text.toString().replace("%", "").toInt() != 0)
+        if (binding.fragmentApexAddListHeaderPercentTv.text.toString().replace("%", "")
+                .toInt() != 0
+        )
             binding.fragmentApexAddListHeaderPercentTv.text =
                 "%" + (binding.fragmentApexAddListHeaderPercentTv.text.toString().replace("%", "")
                     .toInt() - 1).toString()

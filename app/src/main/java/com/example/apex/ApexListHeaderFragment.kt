@@ -1,14 +1,17 @@
 package com.example.apex
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,21 +19,31 @@ import com.example.apex.common.ModePage
 import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.FragmentApexListHeaderBinding
-import kotlinx.android.synthetic.main.fragment_apex_list_header.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListener {
     private lateinit var binding: FragmentApexListHeaderBinding
     private val viewModel: ApexViewModel by viewModel()
     private var adapter: ApexListHeaderItemAdapter? = null
+    private val args: ApexListHeaderFragmentArgs by navArgs()
 
 
     override fun onResume() {
         super.onResume()
-        viewModel.getApexInvoiceListHeader()
+        this.view?.isFocusableInTouchMode = true;
+        this.view?.requestFocus();
+        if (args.namePage == NamePage.INVOICE)
+            viewModel.getApexInvoiceListHeader()
+        else
+            viewModel.getApexChequeListHeader()
         setListeners()
         initializeSwiping()
         observer()
+        setInformation()
+    }
+
+    private fun setInformation() {
+        binding.fragmentApexListHeaderAppbarNameTv.text = args.namePage.getValue()
     }
 
     private fun initializeSwiping() {
@@ -57,8 +70,13 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
     }
 
     private fun setListeners() {
-        binding.fragmentInvoiceBackBtn.setOnClickListener {
+        binding.fragmentApexListHeaderBackBtn.setOnClickListener {
             this.requireActivity().onBackPressed()
+        }
+
+        binding.fragmentApexListHeaderSortBtn.setOnClickListener {
+            val sortDialogFragment = ApexSortDialogFragment()
+            sortDialogFragment.show(requireActivity().supportFragmentManager, null)
         }
         binding.fragmentApexListHeaderAddBtn.setOnClickListener {
 
@@ -66,7 +84,7 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
             this.findNavController()
                 .navigate(
                     ApexListHeaderFragmentDirections.actionApexListHeaderFragmentToAddApexListHeaderFragment(
-                        ModePage.NEW, NamePage.INVOICE, null
+                        ModePage.NEW, args.namePage, null
                     )
                 )
 
@@ -88,20 +106,42 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
                 before: Int, count: Int
             ) {
 
-                if (adapter != null)
-                    adapter?.search(s.toString())
+                if (adapter != null) {
+                    binding.fragmentApexListHeaderCountItemTv.text =
+                        adapter?.search(s.toString()).toString() + " مورد"
+
+                }
+            }
+        })
+        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
+            View.OnKeyListener {
+            override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == KeyEvent.KEYCODE_BACK) {
+                    requireActivity().onBackPressed()
+                    return true
+                }
+                return false
+            }
+
+            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == KeyEvent.KEYCODE_BACK) {
+                    requireActivity().onBackPressed()
+                    return true
+
+                }
+                return false
             }
         })
     }
 
     private fun observer() {
-        viewModel.apexInvoiceLiveData.observe(viewLifecycleOwner) {
+        viewModel.apexListHeaderLiveData.observe(viewLifecycleOwner) {
             binding.fragmentApexListHeaderCountItemTv.text = it.size.toString() + " مورد"
             if (it.isNotEmpty()) {
                 binding.fragmentApexListHeaderApexListRv.visibility = View.VISIBLE
                 binding.fragmentApexListHeaderApexListRv.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = ApexListHeaderItemAdapter(it as ArrayList<ApexListHeader>, this)
+                adapter = ApexListHeaderItemAdapter(it as ArrayList<ApexListHeader>, this,args.namePage)
                 binding.fragmentApexListHeaderApexListRv.adapter = adapter
                 binding.fragmentApexListHeaderEmptyLayout.root.visibility = View.GONE
             } else {
@@ -123,13 +163,13 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
     }
 
     override fun openEditBottomSheet(apexListHeader: ApexListHeader) {
-        var bottomSheetDialog = EditApexBottomSheetFragment(apexListHeader)
+        var bottomSheetDialog = EditApexBottomSheetFragment(apexListHeader,args.namePage)
         bottomSheetDialog.show(requireFragmentManager(), "bottomSheetDialog")
     }
 
     override fun deleteApexListHeader(apexListHeader: ApexListHeader) {
         viewModel.deleteApexListHeader(apexListHeader)
-        Toast.makeText(requireContext(), "گروه فاکتور حذف شد", Toast.LENGTH_SHORT)
+        Toast.makeText(requireContext(), "گروه ${args.namePage.getValue()} حذف شد", Toast.LENGTH_SHORT)
             .show()
     }
 
@@ -142,15 +182,15 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
             )
     }
 
-    override fun emptySearch(show:Boolean) {
-        if (show){
+    override fun emptySearch(show: Boolean) {
+        if (show) {
             binding.fragmentApexListHeaderEmptyLayout.root.visibility = View.VISIBLE
             binding.fragmentApexListHeaderApexListRv.visibility = View.GONE
 
-        }else{
+        } else {
             binding.fragmentApexListHeaderEmptyLayout.root.visibility = View.GONE
             binding.fragmentApexListHeaderApexListRv.visibility = View.VISIBLE
 
         }
-        }
+    }
 }

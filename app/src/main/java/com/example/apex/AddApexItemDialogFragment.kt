@@ -2,9 +2,12 @@ package com.example.apex
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
+import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -25,21 +28,25 @@ class AddApexItemDialogFragment(
 
     override fun onResume() {
         super.onResume()
+        this.view?.isFocusableInTouchMode = true;
+        this.view?.requestFocus();
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         setListeners()
         setInformation()
     }
 
-    private fun setInformation(){
-        if (apexItem!=null){
-            binding.fragmentAddApexItemDialogSerialTIL.editText?.text=
+    private fun setInformation() {
+        if (apexItem != null) {
+            binding.fragmentAddApexItemDialogSerialTIL.editText?.text =
                 Editable.Factory.getInstance().newEditable(apexItem.serial)
-            binding.fragmentAddApexItemDialogPriceTIL.editText?.text=
+            binding.fragmentAddApexItemDialogPriceTIL.editText?.text =
                 Editable.Factory.getInstance().newEditable(apexItem.price.toString())
-            binding.fragmentAddApexItemDialogDateTIL.editText?.text=
+            binding.fragmentAddApexItemDialogDateTIL.editText?.text =
                 Editable.Factory.getInstance().newEditable(apexItem.date)
         }
+
     }
+
     private fun setListeners() {
         this.binding.fragmentAddApexItemDialogCancelBtn.setOnClickListener {
             dismiss()
@@ -51,43 +58,27 @@ class AddApexItemDialogFragment(
                 if (date != "") {
                     val price = binding.fragmentAddApexItemDialogPriceTIL.editText?.text.toString()
                     if (price != "") {
-                        val differenceDates = differenceDates(apexListHeader.date, date)
 
-                        if (apexItem==null){
+                        if (apexItem == null) {
                             eventListener.addApexItem(
                                 ApexItem(
                                     0,
                                     serial,
                                     date,
-                                    differenceDates,
                                     price.toInt(),
-                                    priceInterests(
-                                        apexListHeader.percent,
-                                        price.toInt(),
-                                        differenceDates
-                                    ),
                                     apexListHeader.id
                                 )
                             )
                             dismiss()
                             Toast.makeText(requireContext(), "اضافه شد", Toast.LENGTH_SHORT)
                                 .show()
-                        }
-
-
-                        else{
+                        } else {
                             eventListener.updateApexItem(
                                 ApexItem(
                                     apexItem.id,
                                     serial,
                                     date,
-                                    differenceDates,
                                     price.toInt(),
-                                    priceInterests(
-                                        apexListHeader.percent,
-                                        price.toInt(),
-                                        differenceDates
-                                    ),
                                     apexListHeader.id
                                 )
                             )
@@ -114,6 +105,27 @@ class AddApexItemDialogFragment(
 
             }
         }
+        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
+            View.OnKeyListener {
+            override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+                if( p1 == KeyEvent.KEYCODE_BACK )
+                {
+                    requireActivity().onBackPressed()
+                    return true
+                }
+                return false
+            }
+
+            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
+                if( p1 == KeyEvent.KEYCODE_BACK )
+                {
+                    requireActivity().onBackPressed()
+                    return true
+
+                }
+                return false
+            }
+        })
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
