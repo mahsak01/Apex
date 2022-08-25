@@ -21,18 +21,15 @@
 
             <TextView
                 android:id="@+id/layoutApexItemSwipe_apexItemSerialTv"
-                android:layout_width="254dp"
-                android:layout_height="17dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="سریال چک : 5545454545845"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
-                app:layout_constraintEnd_toStartOf="@+id/layoutApexItemSwipe_editBtn"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="سریال چک : 5545454545845"
+                app:layout_constraintStart_toStartOf="@+id/layoutApexItemSwipe_apexItemDateTv"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.airbnb.lottie.LottieAnimationView

@@ -11,23 +11,36 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.example.apex.databinding.FragmentSortApexItemDialogBinding
 
-class SortApexItemDialogFragment(private val sort:Int=2131231375, private val eventListeners: EventListeners) : DialogFragment() {
+class SortApexItemDialogFragment(private val sort:Int=0, private val eventListeners: EventListeners) : DialogFragment() {
     private lateinit var binding: FragmentSortApexItemDialogBinding
 
 
     override fun onResume() {
         super.onResume()
-        binding.fragmentApexSortDialogRadioGroup.check(sort)
         this.view?.isFocusableInTouchMode = true;
         this.view?.requestFocus();
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        setCheckRadioGroup()
         setListeners()
     }
 
+    private fun setCheckRadioGroup() {
+        when (sort) {
+            0 -> binding.fragmentApexItemSortDialogRadioGroup.check(R.id.fragmentApexItemSortDialog_byApexDayRb)
+            1 -> binding.fragmentApexItemSortDialogRadioGroup.check(R.id.fragmentApexItemSortDialog_byIncreaseRb)
+            2 -> binding.fragmentApexItemSortDialogRadioGroup.check(R.id.fragmentApexItemSortDialog_byDecreaseRb)
+        }
+    }
+
+
 
     private fun setListeners() {
-        binding.fragmentApexSortDialogRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            eventListeners.changeSort(checkedId)
+        binding.fragmentApexItemSortDialogRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.fragmentApexItemSortDialog_byApexDayRb -> eventListeners.changeSort(0)
+                R.id.fragmentApexItemSortDialog_byIncreaseRb -> eventListeners.changeSort(1)
+                R.id.fragmentApexItemSortDialog_byDecreaseRb -> eventListeners.changeSort(2)
+            }
         }
         this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
             View.OnKeyListener {

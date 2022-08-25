@@ -1,5 +1,6 @@
 package com.example.apex
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,6 +23,7 @@ import com.example.apex.common.ModePage
 import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.FragmentApexListHeaderBinding
+import kotlinx.android.synthetic.main.fragment_apex_items.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListener,
@@ -29,13 +32,13 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
     private val viewModel: ApexViewModel by viewModel()
     private var adapter: ApexListHeaderItemAdapter? = null
     private val args: ApexListHeaderFragmentArgs by navArgs()
-    private var sort = 2131231375
+    private var sort = 0
 
 
     override fun onResume() {
         super.onResume()
-        this.view?.isFocusableInTouchMode = true;
-        this.view?.requestFocus();
+        this.view?.isFocusableInTouchMode = true
+        this.view?.requestFocus()
         if (args.namePage == NamePage.INVOICE)
             viewModel.getApexInvoiceListHeader()
         else
@@ -74,12 +77,10 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
     }
 
     private fun setListeners() {
-        binding.fragmentApexListHeaderBackBtn.setOnClickListener {
-            this.requireActivity().onBackPressed()
-        }
+
 
         binding.fragmentApexListHeaderSortBtn.setOnClickListener {
-            val sortDialogFragment = SortApexListHeaderDialogFragment(sort, this)
+            val sortDialogFragment = SortApexListHeaderDialogFragment(this.sort, this)
             sortDialogFragment.show(requireActivity().supportFragmentManager, null)
         }
         binding.fragmentApexListHeaderAddBtn.setOnClickListener {
@@ -107,6 +108,7 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
 
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
@@ -119,26 +121,22 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
                 }
             }
         })
-        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
-            View.OnKeyListener {
+
+        binding.fragmentApexListHeaderBackBtn.setOnClickListener {
+            this.requireActivity().onBackPressed()
+        }
+        this.view?.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
                 if (p1 == KeyEvent.KEYCODE_BACK) {
-                    requireActivity().onBackPressed()
+                    binding.fragmentApexListHeaderBackBtn.callOnClick()
                     return true
-                }
-                return false
-            }
-
-            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
-                if (p1 == KeyEvent.KEYCODE_BACK) {
-                    return true
-
                 }
                 return false
             }
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun observer() {
         viewModel.apexListHeaderLiveData.observe(viewLifecycleOwner) {
             binding.fragmentApexListHeaderCountItemTv.text = it.size.toString() + " مورد"
@@ -170,7 +168,7 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
     }
 
     override fun openEditBottomSheet(apexListHeader: ApexListHeader) {
-        var bottomSheetDialog = EditApexBottomSheetFragment(apexListHeader, args.namePage)
+        val bottomSheetDialog = EditApexBottomSheetFragment(apexListHeader, args.namePage)
         bottomSheetDialog.show(requireFragmentManager(), "bottomSheetDialog")
     }
 

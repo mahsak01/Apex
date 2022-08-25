@@ -72,7 +72,7 @@ class EditApexBottomSheetFragment(
         })
     }
 
-    fun addObserve() {
+    private fun addObserve() {
         viewModel.apexItemsLiveData.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 binding.fragmentBottomSheetEditApexLastInformation.visibility = View.GONE
@@ -84,17 +84,17 @@ class EditApexBottomSheetFragment(
                 binding.fragmentBottomSheetEditApexPriceAndDayTv.visibility = View.VISIBLE
                 binding.fragmentBottomSheetEditApexPriceInterestTv.visibility = View.VISIBLE
                 binding.fragmentBottomSheetEditApexPriceAndDayTv.text =
-                    "مبلغ کل " + totalPrice + "ریال " + apexDay(it, apexListHeader) + " روزه"
+                    "مبلغ کل " + totalPrice.toString().beautifyPrice() + apexDay(it, apexListHeader) + " روزه"
                 binding.fragmentBottomSheetEditApexPriceInterestTv.text =
-                    "مبلغ کل بهره " + totalPriceInterest(it, apexListHeader) + " ریال"
+                    "مبلغ کل بهره " + totalPriceInterest(it, apexListHeader).toString().beautifyPrice()
                 var lastPrice = getLastPrice(apexListHeader, totalPrice)
-                binding.fragmentBottomSheetEditApexLastPriceTv.text = "$lastPrice ریال"
+                binding.fragmentBottomSheetEditApexLastPriceTv.text = lastPrice.toString().beautifyPrice()
                 var lastDate = getLastDate(apexListHeader, totalPrice, lastPrice)
                 binding.fragmentBottomSheetEditApexLastDateFl.text = lastDate
                 binding.fragmentBottomSheetEditApexLastPriceInterestTv.text = getLastInterest(
                     apexListHeader, lastPrice,
                     differenceDates(lastDate, apexListHeader.date)
-                ).toString()
+                ).toString().beautifyPrice()
                 binding.fragmentBottomSheetEditApexLastPriceInterestTv.isSelected = true
                 binding.fragmentBottomSheetEditApexLastDateFl.isSelected = true
                 binding.fragmentBottomSheetEditApexLastPriceTv.isSelected = true
@@ -110,8 +110,12 @@ class EditApexBottomSheetFragment(
         binding.fragmentBottomSheetEditApexApexListHeaderNameTv.text = apexListHeader.name
         binding.fragmentBottomSheetEditApexApexListHeaderAccountNameTv.text =
             "طرف حساب: " + apexListHeader.accountName
+        binding.fragmentBottomSheetEditApexApexListHeaderInterestTv.text =
+            "درصد بهره: " + apexListHeader.percent + "%"
+        binding.fragmentBottomSheetEditApexApexListHeaderPriceGroupTv.text =
+            "مبلغ: " + apexListHeader.price.beautifyPrice()
         binding.fragmentBottomSheetEditApexApexListHeaderPriceTv.text =
-            apexListHeader.totalPrice.toString() + " ریال"
+            apexListHeader.totalPrice.beautifyPrice()
         binding.fragmentBottomSheetEditApexApexListHeaderNumberTv.text =
             apexListHeader.numberItem.toString() + " مورد"
         binding.fragmentBottomSheetEditApexDayTv.text = apexListHeader.apexDay.toString() + "روزه"

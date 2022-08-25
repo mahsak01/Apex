@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.apex.common.ModePage
@@ -220,24 +221,6 @@ class AddApexListHeaderFragment() :
         binding.fragmentApexAddListHeaderBackBtn.setOnClickListener {
             this.requireActivity().onBackPressed()
         }
-        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
-            View.OnKeyListener {
-            override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
-                if (p1 == KeyEvent.KEYCODE_BACK) {
-                    return true
-                }
-                return false
-            }
-
-            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
-                if (p1 == KeyEvent.KEYCODE_BACK) {
-                    requireActivity().onBackPressed()
-                    return true
-
-                }
-                return false
-            }
-        })
     }
 
     override fun onCreateView(

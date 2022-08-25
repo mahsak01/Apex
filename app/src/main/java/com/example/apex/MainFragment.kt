@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.example.apex.common.ModePage
 import com.example.apex.common.NamePage
 import com.example.apex.databinding.FragmentMainBinding
+import kotlinx.android.synthetic.main.fragment_apex_items.*
 
 
 class MainFragment : Fragment() {
@@ -41,23 +43,13 @@ class MainFragment : Fragment() {
                     )
                 )
         }
-        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
+        this.view?.setOnKeyListener(object :
             View.OnKeyListener {
             override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
                 if( p1 == KeyEvent.KEYCODE_BACK )
                 {
-                    requireActivity().onBackPressed()
-                    return true
-                }
-                return false
-            }
 
-            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
-                if( p1 == KeyEvent.KEYCODE_BACK )
-                {
-                    requireActivity().onBackPressed()
                     return true
-
                 }
                 return false
             }

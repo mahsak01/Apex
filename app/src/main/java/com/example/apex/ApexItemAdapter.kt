@@ -33,13 +33,13 @@ class ApexItemAdapter(
             binding.layoutApexItemApexItemDateTv.text =
                 "تاریخ ${namePage.getValue()}: " + apexItem.date
             binding.layoutApexItemApexItemPriceTv.text =
-                "مبلغ ${namePage.getValue()}: " + apexItem.price
+                "مبلغ ${namePage.getValue()}: " + apexItem.price.beautifyPrice()
             binding.layoutApexItemApexItemPercentPriceTv.text =
                 "مبلغ بهره: " + priceInterests(
                     apexListHeader.percent,
                     apexItem.price.toLong(),
                     differenceDates
-                )
+                ).toString().beautifyPrice()
             binding.layoutApexItemApexItemDayTv.text =
                 "تعداد روز: $differenceDates روز"
             binding.layoutApexItemApexItemDayTv.isSelected =true
@@ -67,13 +67,13 @@ class ApexItemAdapter(
             binding.layoutApexItemSwipeApexItemDateTv.text =
                 "تاریخ ${namePage.getValue()}: " + apexItem.date
             binding.layoutApexItemSwipeApexItemPriceTv.text =
-                "مبلغ ${namePage.getValue()}: " + apexItem.price
+                "مبلغ ${namePage.getValue()}: " + apexItem.price.beautifyPrice()
             binding.layoutApexItemSwipeApexItemPercentPriceTv.text =
                 "مبلغ بهره: " + priceInterests(
                     apexListHeader.percent,
                     apexItem.price.toLong(),
                     differenceDates
-                )
+                ).toString().beautifyPrice()
             binding.layoutApexItemSwipeApexItemDayTv.text =
                 "تعداد روز: $differenceDates روز"
 
@@ -149,9 +149,9 @@ class ApexItemAdapter(
 
     fun sort(id: Int) {
         when (id) {
-            2131231375 -> apexItemList.sortBy { getTimeOfDate(it.date) }
-            2131231377 -> apexItemList.sortBy { it.price }
-            2131231376 -> apexItemList.sortByDescending { it.price }
+            0 -> apexItemList.sortBy { getTimeOfDate(it.date) }
+            1 -> apexItemList.sortBy { it.price }
+            2 -> apexItemList.sortByDescending { it.price }
         }
         notifyDataSetChanged()
 

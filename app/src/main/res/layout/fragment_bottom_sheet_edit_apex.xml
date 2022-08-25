@@ -73,18 +73,52 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_apexListHeaderNameTv"
                     tools:text="طرف حساب: " />
+                <TextView
+                    android:id="@+id/fragmentBottomSheetEditApex_apexListHeaderInterestTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="18dp"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_apexListHeaderAccountNameTv"
+                    tools:text="درصد بهره:" />
+                <TextView
+                    android:id="@+id/fragmentBottomSheetEditApex_apexListHeaderPriceGroupTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="18dp"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_apexListHeaderInterestTv"
+                    tools:text="مبلغ: " />
 
                 <View
                     android:id="@+id/view4"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_apexListHeaderAccountNameTv"
+                    app:layout_constraintTop_toBottomOf="@+id/fragmentBottomSheetEditApex_apexListHeaderPriceGroupTv"
                     tools:ignore="MissingConstraints" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -452,7 +486,7 @@
                             tools:text="تاریخ اخرین فاکتور"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/frameLayout7"
-                            tools:textSize="19sp" />
+                            android:textSize="19sp" />
 
                         <FrameLayout
                             android:id="@+id/frameLayout6"

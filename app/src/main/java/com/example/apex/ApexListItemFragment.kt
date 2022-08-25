@@ -1,5 +1,6 @@
 package com.example.apex
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.KeyEvent
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.apex.common.beautifyPrice
 import com.example.apex.common.differenceDates
 import com.example.apex.common.getLastPrice
 import com.example.apex.common.totalPrice
@@ -23,7 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener,
-    ApexItemAdapter.EventListener,SortApexItemDialogFragment.EventListeners {
+    ApexItemAdapter.EventListener, SortApexItemDialogFragment.EventListeners {
 
     private lateinit var binding: FragmentApexItemsBinding
 
@@ -32,12 +34,12 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
     private val viewModel: ApexViewModel by viewModel()
 
     private var adapter: ApexItemAdapter? = null
-    private var sort=2131231375
+    private var sort = 0
 
     override fun onResume() {
         super.onResume()
-        this.view?.isFocusableInTouchMode = true;
-        this.view?.requestFocus();
+        this.view?.isFocusableInTouchMode = true
+        this.view?.requestFocus()
         viewModel.getApexItems(args.apexListHeader)
         setListener()
         initializeSwiping()
@@ -46,11 +48,11 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
 
     private fun setListener() {
         binding.fragmentApexItemsApexListHeaderName.setOnClickListener {
-            var bottomSheetDialog = EditApexBottomSheetFragment(args.apexListHeader,args.namePage)
+            val bottomSheetDialog = EditApexBottomSheetFragment(args.apexListHeader, args.namePage)
             bottomSheetDialog.show(requireFragmentManager(), "bottomSheetDialog")
         }
         binding.fragmentApexItemsSortBtn.setOnClickListener {
-            val sortDialogFragment = SortApexItemDialogFragment(sort,this)
+            val sortDialogFragment = SortApexItemDialogFragment(sort, this)
             sortDialogFragment.show(requireActivity().supportFragmentManager, null)
         }
         binding.fragmentApexItemsAddItemBtn.setOnClickListener {
@@ -62,16 +64,20 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
 
             this.findNavController()
                 .navigate(
-                    ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(args.namePage)
+                    ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(
+                        args.namePage
+                    )
                 )
         }
-        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
+        this.view?.setOnKeyListener(object :
             View.OnKeyListener {
             override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
                 if (p1 == KeyEvent.KEYCODE_BACK) {
                     findNavController()
                         .navigate(
-                            ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(args.namePage)
+                            ApexListItemFragmentDirections.actionApexListItemFragmentToApexListHeaderFragment2(
+                                args.namePage
+                            )
                         )
 
                     return true
@@ -79,14 +85,6 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
                 return false
             }
 
-            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
-                if (p1 == KeyEvent.KEYCODE_BACK) {
-
-                    return true
-
-                }
-                return false
-            }
         })
     }
 
@@ -113,26 +111,32 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         handler.attachToRecyclerView(this.binding.fragmentApexItemsApexItemsRv)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setInformation() {
         binding.fragmentApexItemsApexListHeaderName.text = args.apexListHeader.name
-        binding.fragmentApexItemsApexListHeaderName.isSelected=true
+        binding.fragmentApexItemsApexListHeaderName.isSelected = true
 
-        binding.fragmentApexItemsAppBarText.text=args.namePage.getValue()
+        binding.fragmentApexItemsAppBarText.text = args.namePage.getValue()
         viewModel.apexItemsLiveData.observe(viewLifecycleOwner) {
             binding.fragmentApexItemsApexListHeaderNumberTv.text = it.size.toString() + " مورد"
             binding.fragmentApexItemsApexListTotalPriceTv.text =
-                getTotalPrice(it).toString() + " ریال"
+                getTotalPrice(it).toString().beautifyPrice()
             if (it.isNotEmpty()) {
                 binding.fragmentApexItemsDateLl.visibility = View.VISIBLE
                 binding.fragmentApexItemsPriceLl.visibility = View.VISIBLE
-                binding.fragmentApexItemsMinPriceTv.text = getMinPrice(it).toString() + " ریال"
-                binding.fragmentApexItemsMaxPriceTv.text = getMaxPrice(it).toString() + " ریال"
+                binding.fragmentApexItemsMinPriceTv.text = getMinPrice(it).toString().beautifyPrice()
+                binding.fragmentApexItemsMaxPriceTv.text = getMaxPrice(it).toString().beautifyPrice()
                 binding.fragmentApexItemsMinDateTv.text = getMinDate(it)
                 binding.fragmentApexItemsMaxDateTv.text = getMaxDate(it)
                 binding.fragmentApexItemsApexItemsRv.visibility = View.VISIBLE
                 binding.fragmentApexItemsApexItemsRv.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = ApexItemAdapter(it as ArrayList<ApexItem>, this, args.apexListHeader,args.namePage)
+                adapter = ApexItemAdapter(
+                    it as ArrayList<ApexItem>,
+                    this,
+                    args.apexListHeader,
+                    args.namePage
+                )
                 adapter?.sort(sort)
                 binding.fragmentApexItemsApexItemsRv.adapter = adapter
                 binding.fragmentChequeEmptyLayout.root.visibility = View.GONE
@@ -153,6 +157,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         return totalPrice
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun getMinDate(array: List<ApexItem>): String {
         var min = array[0].date
         for (item in array) {
@@ -164,6 +169,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         return min
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun getMaxDate(array: List<ApexItem>): String {
         var max = array[0].date
         for (item in array) {
@@ -220,7 +226,11 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
         else if (viewModel.searchApexItem(apexItem))
             viewModel.addApexItem(apexItem, args.apexListHeader)
         else
-            Toast.makeText(requireContext(), "${args.namePage.getValue()} با این سریال وجود دارد", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                requireContext(),
+                "${args.namePage.getValue()} با این سریال وجود دارد",
+                Toast.LENGTH_SHORT
+            )
                 .show()
     }
 
@@ -259,8 +269,8 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
     }
 
     override fun changeSort(id: Int) {
-        this.sort=id
-        if (adapter!=null)
+        this.sort = id
+        if (adapter != null)
             adapter?.sort(id)
     }
 }

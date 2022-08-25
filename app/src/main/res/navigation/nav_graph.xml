@@ -59,8 +59,7 @@
         <action
             android:id="@+id/action_apexListItemFragment_to_apexListHeaderFragment2"
             app:destination="@id/apexListHeaderFragment"
-            app:popUpTo="@id/apexListHeaderFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/apexListHeaderFragment" />
         <argument
             android:name="namePage"
             app:argType="com.example.apex.common.NamePage" />

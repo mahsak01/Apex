@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apex.common.MenuStatus
 import com.example.apex.common.NamePage
+import com.example.apex.common.beautifyPrice
 import com.example.apex.common.getTimeOfDate
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.LayoutApexListItemBinding
@@ -29,7 +30,7 @@ class ApexListHeaderItemAdapter(
             binding.layoutApexListItemApexListHeaderNumberInvoiceTv.text =
                 "تعداد ${namePage.getValue()}: " + apexListHeader.numberItem.toString() + " مورد"
             binding.layoutApexListItemApexListHeaderTotalPriceTv.text =
-                "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
+                "مبلغ کل: " + apexListHeader.totalPrice.beautifyPrice()
             binding.layoutApexListItemApexListHeaderDateTv.text =
                 "تاریخ راس ${namePage.getValue()}: " + apexListHeader.date
             binding.layoutApexListItemApexListHeaderNameTv.isSelected =true
@@ -51,7 +52,7 @@ class ApexListHeaderItemAdapter(
             binding.layoutApexListItemSwipeApexListHeaderNumberInvoiceTv.text =
                 "تعداد ${namePage.getValue()}: " + apexListHeader.numberItem.toString() + " مورد"
             binding.layoutApexListItemSwipeApexListHeaderTotalPriceTv.text =
-                "مبلغ کل: " + apexListHeader.totalPrice.toString() + " ریال"
+                "مبلغ کل: " + apexListHeader.totalPrice.beautifyPrice()
             binding.layoutApexListItemSwipeApexListHeaderDateTv.text =
                 "تاریخ راس ${namePage.getValue()}: " + apexListHeader.date
 
@@ -142,10 +143,10 @@ class ApexListHeaderItemAdapter(
 
     fun sort(id: Int) {
         when (id) {
-            2131231375 -> apexListHeader.sortBy { getTimeOfDate(it.date) }
-            2131231377 -> apexListHeader.sortBy { it.price }
-            2131231376 -> apexListHeader.sortByDescending { it.price }
-            2131231378 -> apexListHeader.sortBy { it.numberItem }
+            0 -> apexListHeader.sortBy { getTimeOfDate(it.date) }
+            1 -> apexListHeader.sortBy { it.price }
+            2 -> apexListHeader.sortByDescending { it.price }
+            3 -> apexListHeader.sortByDescending { it.numberItem }
         }
         notifyDataSetChanged()
     }

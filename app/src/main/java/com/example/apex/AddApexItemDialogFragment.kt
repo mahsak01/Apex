@@ -105,26 +105,6 @@ class AddApexItemDialogFragment(
 
             }
         }
-        this.view?.setOnKeyListener(object : DialogInterface.OnKeyListener,
-            View.OnKeyListener {
-            override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
-                if( p1 == KeyEvent.KEYCODE_BACK )
-                {
-                    requireActivity().onBackPressed()
-                    return true
-                }
-                return false
-            }
-
-            override fun onKey(p0: DialogInterface?, p1: Int, p2: KeyEvent?): Boolean {
-                if( p1 == KeyEvent.KEYCODE_BACK )
-                {
-                    return true
-
-                }
-                return false
-            }
-        })
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

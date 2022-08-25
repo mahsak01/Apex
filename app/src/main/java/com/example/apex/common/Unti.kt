@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.inputmethod.InputMethodManager
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 fun getTimeOfDate(time1: String):Long{
@@ -27,13 +28,13 @@ fun addDates(time1: String, day: Int): String {
 }
 
 
-fun priceInterests(percent: Int, price: Long, apexDay: Long): Int {
+fun priceInterests(percent: Int, price: Long, apexDay: Long): Long{
     var result=0f
     result=((apexDay / 30).toFloat())
     result*=percent
     result*=price
     result/=100
-    return result.toInt()
+    return result.toLong()
 }
 
 fun apexDay(apexItems: List<ApexItem>,apexListHeader: ApexListHeader): Int {
@@ -73,7 +74,7 @@ fun getLastPrice(apexListHeader: ApexListHeader, totalPrice: Long): Long {
     return apexListHeader.price.toLong() - totalPrice
 }
 
-fun getLastInterest(apexListHeader: ApexListHeader, lastPrice: Long, apexDay: Long): Int {
+fun getLastInterest(apexListHeader: ApexListHeader, lastPrice: Long, apexDay: Long): Long {
     return priceInterests(apexListHeader.percent, lastPrice, apexDay)
 }
 
@@ -85,4 +86,10 @@ fun getLastDate(apexListHeader: ApexListHeader, totalPrice: Long, lastPrice: Lon
 
     return addDates(apexListHeader.date, result.toInt())
 }
-
+fun String.beautifyPrice(attachRial: Boolean = true, isNegative: Boolean = false): String {
+    val formatter = if (attachRial) DecimalFormat("#,##0" + " ریال") else
+        DecimalFormat("#,##0")
+    val handle=StringBuilder(formatter.format(this.toDouble()))
+    if (isNegative)handle.append(")").insert(0,"(")
+    return handle.toString()
+}

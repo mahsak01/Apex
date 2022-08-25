@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
-            android:id="@+id/fragmentApexSortDialog_radioGroup"
+            android:id="@+id/fragmentApexItemSortDialog_radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <RadioButton
-                android:id="@+id/fragmentApexSortDialog_byApexDayRb"
+                android:id="@+id/fragmentApexItemSortDialog_byApexDayRb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/green"
@@ -41,7 +41,7 @@
                 android:text="تاریخ راس" />
 
             <RadioButton
-                android:id="@+id/fragmentApexSortDialog_byIncreaseRb"
+                android:id="@+id/fragmentApexItemSortDialog_byIncreaseRb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/green"
@@ -49,7 +49,7 @@
                 android:text="جمع کم به زیاد" />
 
             <RadioButton
-                android:id="@+id/fragmentApexSortDialog_byDecreaseRb"
+                android:id="@+id/fragmentApexItemSortDialog_byDecreaseRb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/green"
