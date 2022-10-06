@@ -2,6 +2,8 @@ package com.example.apex.data.repository
 
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
+import com.example.apex.data.model.GetAddDateInformation
+import com.example.apex.data.model.GetDiffDateInformation
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -26,6 +28,12 @@ interface ApexRepository {
     fun updateApexListHeader(apexListHeader: ApexListHeader): Completable
 
     fun deleteApexListHeader(apexListHeader: ApexListHeader): Completable
+
+    fun getDiffDate(fromDate:String, toDate:String):Single<GetDiffDateInformation>
+
+    fun getDate():Single<List<String>>
+
+    fun getAddDate(date:String,addDay:String):Single<GetAddDateInformation>
 
 
 }

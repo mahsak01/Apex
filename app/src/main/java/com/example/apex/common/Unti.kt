@@ -1,16 +1,10 @@
 package com.example.apex.common
 
-import android.app.Activity
-import android.view.inputmethod.InputMethodManager
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
-fun getTimeOfDate(time1: String):Long{
-    val date1 = SimpleDateFormat("yyyy/MM/dd").parse(time1)
-    return date1.time
-}
 fun differenceDates(time1: String, time2: String): Long {
 
     val date1 = SimpleDateFormat("yyyy/MM/dd").parse(time1)
@@ -22,22 +16,20 @@ fun differenceDates(time1: String, time2: String): Long {
 }
 
 fun addDates(time1: String, day: Int): String {
-
-    val date1 = SimpleDateFormat("yyyy/MM/dd").parse(time1)
     return "1402/10/05"
 }
 
 
-fun priceInterests(percent: Int, price: Long, apexDay: Long): Long{
-    var result=0f
-    result=((apexDay / 30).toFloat())
-    result*=percent
-    result*=price
-    result/=100
+fun priceInterests(percent: Int, price: Long, apexDay: Long): Long {
+    var result = 0f
+    result = ((apexDay / 30).toFloat())
+    result *= percent
+    result *= price
+    result /= 100
     return result.toLong()
 }
 
-fun apexDay(apexItems: List<ApexItem>,apexListHeader: ApexListHeader): Int {
+fun apexDay(apexItems: List<ApexItem>, apexListHeader: ApexListHeader): Int {
     var result = 0L
     for (item in apexItems) {
         result += priceInterests(
@@ -57,7 +49,7 @@ fun totalPrice(apexItems: List<ApexItem>): Long {
     return result
 }
 
-fun totalPriceInterest(apexItems: List<ApexItem>,apexListHeader: ApexListHeader): Long {
+fun totalPriceInterest(apexItems: List<ApexItem>, apexListHeader: ApexListHeader): Long {
     var result = 0L
     for (item in apexItems) {
         result += priceInterests(
@@ -86,10 +78,11 @@ fun getLastDate(apexListHeader: ApexListHeader, totalPrice: Long, lastPrice: Lon
 
     return addDates(apexListHeader.date, result.toInt())
 }
+
 fun String.beautifyPrice(attachRial: Boolean = true, isNegative: Boolean = false): String {
     val formatter = if (attachRial) DecimalFormat("#,##0" + " ریال") else
         DecimalFormat("#,##0")
-    val handle=StringBuilder(formatter.format(this.toDouble()))
-    if (isNegative)handle.append(")").insert(0,"(")
+    val handle = StringBuilder(formatter.format(this.toDouble()))
+    if (isNegative) handle.append(")").insert(0, "(")
     return handle.toString()
 }

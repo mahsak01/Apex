@@ -2,12 +2,17 @@ package com.example.apex.data.implement
 
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
+import com.example.apex.data.model.GetAddDateInformation
+import com.example.apex.data.model.GetDiffDateInformation
 import com.example.apex.data.repository.ApexRepository
 import com.example.apex.data.source.ApexDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class ApexRepositoryImplement(private val apexLocalDataSource: ApexDataSource) : ApexRepository {
+class ApexRepositoryImplement(
+    private val apexLocalDataSource: ApexDataSource,
+    private val apexRemoteDataSource: ApexDataSource
+) : ApexRepository {
 
     override fun getApexListInvoice(): Single<List<ApexListHeader>?> =
         apexLocalDataSource.getApexListInvoice()
@@ -44,4 +49,12 @@ class ApexRepositoryImplement(private val apexLocalDataSource: ApexDataSource) :
 
     override fun deleteApexListHeader(apexListHeader: ApexListHeader): Completable =
         apexLocalDataSource.deleteApexListHeader(apexListHeader)
+
+    override fun getDiffDate(fromDate: String, toDate: String): Single<GetDiffDateInformation> =
+        apexRemoteDataSource.getDiffDate(fromDate, toDate)
+
+    override fun getDate(): Single<List<String>> = apexRemoteDataSource.getDate()
+
+    override fun getAddDate(date: String, addDay: String): Single<GetAddDateInformation> =
+        apexRemoteDataSource.getAddDate(date, addDay)
 }

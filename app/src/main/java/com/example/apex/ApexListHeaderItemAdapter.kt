@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.apex.common.MenuStatus
 import com.example.apex.common.NamePage
 import com.example.apex.common.beautifyPrice
-import com.example.apex.common.getTimeOfDate
 import com.example.apex.data.model.ApexListHeader
 import com.example.apex.databinding.LayoutApexListItemBinding
 import com.example.apex.databinding.LayoutApexListItemSwipeBinding
@@ -143,7 +142,7 @@ class ApexListHeaderItemAdapter(
 
     fun sort(id: Int) {
         when (id) {
-            0 -> apexListHeader.sortBy { getTimeOfDate(it.date) }
+            0 -> apexListHeader.sortBy { it.date.replace("/","").toInt() }
             1 -> apexListHeader.sortBy { it.price }
             2 -> apexListHeader.sortByDescending { it.price }
             3 -> apexListHeader.sortByDescending { it.numberItem }

@@ -19,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.apex.common.DateContainer
 import com.example.apex.common.ModePage
 import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexListHeader
@@ -51,6 +52,7 @@ class ApexListHeaderFragment : Fragment(), ApexListHeaderItemAdapter.EventListen
 
     private fun setInformation() {
         binding.fragmentApexListHeaderAppbarNameTv.text = args.namePage.getValue()
+        binding.fragmentApexListHeaderTimeTv.text = "امروز: " + DateContainer.longDate
     }
 
     private fun initializeSwiping() {

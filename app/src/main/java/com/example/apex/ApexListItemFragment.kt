@@ -124,8 +124,10 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
             if (it.isNotEmpty()) {
                 binding.fragmentApexItemsDateLl.visibility = View.VISIBLE
                 binding.fragmentApexItemsPriceLl.visibility = View.VISIBLE
-                binding.fragmentApexItemsMinPriceTv.text = getMinPrice(it).toString().beautifyPrice()
-                binding.fragmentApexItemsMaxPriceTv.text = getMaxPrice(it).toString().beautifyPrice()
+                binding.fragmentApexItemsMinPriceTv.text =
+                    getMinPrice(it).toString().beautifyPrice()
+                binding.fragmentApexItemsMaxPriceTv.text =
+                    getMaxPrice(it).toString().beautifyPrice()
                 binding.fragmentApexItemsMinDateTv.text = getMinDate(it)
                 binding.fragmentApexItemsMaxDateTv.text = getMaxDate(it)
                 binding.fragmentApexItemsApexItemsRv.visibility = View.VISIBLE
@@ -250,7 +252,7 @@ class ApexListItemFragment : Fragment(), AddApexItemDialogFragment.EventListener
     }
 
     private fun checkDate(date: String): Boolean {
-        if (differenceDates(args.apexListHeader.date, date) >= 0)
+        if (date.replace("/", "").toLong() >= args.apexListHeader.date.replace("/", "").toLong())
             return true
         return false
     }

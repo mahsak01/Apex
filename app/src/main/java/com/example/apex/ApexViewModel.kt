@@ -4,9 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.apex.common.ApexCompletableObserver
 import com.example.apex.common.ApexSingleObserver
+import com.example.apex.common.DateContainer
 import com.example.apex.common.NamePage
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
+import com.example.apex.data.model.GetAddDateInformation
+import com.example.apex.data.model.GetDiffDateInformation
 import com.example.apex.data.repository.ApexRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -17,6 +20,8 @@ class ApexViewModel(private val apexRepository: ApexRepository) : ViewModel() {
     val apexListHeaderLiveData = MutableLiveData<List<ApexListHeader>>()
     val apexItemsLiveData = MutableLiveData<List<ApexItem>>()
     val addApexListHeaderLiveData = MutableLiveData<List<ApexListHeader>>()
+    val getDiffDateLiveData = MutableLiveData<GetDiffDateInformation>()
+    val getAddDateLiveData = MutableLiveData<GetAddDateInformation>()
 
 
     fun searchApexItem(apexItem: ApexItem): Boolean {
@@ -156,6 +161,39 @@ class ApexViewModel(private val apexRepository: ApexRepository) : ViewModel() {
             .subscribe(object : ApexCompletableObserver(compositeDisposable) {
                 override fun onComplete() {
                     getApexInvoiceListHeader()
+                }
+            })
+    }
+
+    fun getDate() {
+        apexRepository.getDate()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : ApexSingleObserver<List<String>>(compositeDisposable) {
+                override fun onSuccess(t: List<String>) {
+                    DateContainer.update(t[0], t[2], t[1])
+                }
+
+
+            })
+    }
+
+    fun getDiffDates(fromDate: String, toDate: String) {
+        apexRepository.getDiffDate(fromDate, toDate).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : ApexSingleObserver<GetDiffDateInformation>(compositeDisposable) {
+                override fun onSuccess(t: GetDiffDateInformation) {
+                    getDiffDateLiveData.value = t
+                }
+            })
+    }
+
+    fun getAddDates(date: String, addDay: String) {
+        apexRepository.getAddDate(date, addDay).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : ApexSingleObserver<GetAddDateInformation>(compositeDisposable) {
+                override fun onSuccess(t: GetAddDateInformation) {
+                    getAddDateLiveData.value = t
                 }
             })
     }

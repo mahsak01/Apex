@@ -2,8 +2,11 @@ package com.example.apex.data.source
 
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
+import com.example.apex.data.model.GetAddDateInformation
+import com.example.apex.data.model.GetDiffDateInformation
 import io.reactivex.Completable
 import io.reactivex.Single
+import retrofit2.http.Query
 
 interface ApexDataSource {
 
@@ -27,5 +30,12 @@ interface ApexDataSource {
     fun updateApexListHeader(apexListHeader: ApexListHeader): Completable
 
     fun deleteApexListHeader(apexListHeader: ApexListHeader): Completable
+
+    fun getDiffDate(fromDate:String, toDate:String):Single<GetDiffDateInformation>
+
+    fun getAddDate(date:String,addDay:String):Single<GetAddDateInformation>
+
+    fun getDate():Single<List<String>>
+
 
 }

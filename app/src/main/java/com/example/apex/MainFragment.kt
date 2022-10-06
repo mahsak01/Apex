@@ -13,17 +13,21 @@ import com.example.apex.common.ModePage
 import com.example.apex.common.NamePage
 import com.example.apex.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_apex_items.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private val viewModel: ApexViewModel by viewModel()
 
     override fun onResume() {
         super.onResume()
         this.view?.isFocusableInTouchMode = true
         this.view?.requestFocus()
         setListeners()
+        viewModel.getDate()
+
     }
 
     private fun setListeners(){

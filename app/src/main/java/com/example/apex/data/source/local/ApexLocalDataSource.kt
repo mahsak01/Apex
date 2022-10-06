@@ -3,6 +3,8 @@ package com.example.apex.data.source.local
 import androidx.room.*
 import com.example.apex.data.model.ApexItem
 import com.example.apex.data.model.ApexListHeader
+import com.example.apex.data.model.GetAddDateInformation
+import com.example.apex.data.model.GetDiffDateInformation
 import com.example.apex.data.source.ApexDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -41,5 +43,15 @@ interface ApexLocalDataSource : ApexDataSource {
     @Insert
     override fun addApexListHeader(apexListHeader: ApexListHeader): Completable
 
+    override fun getDiffDate(fromDate: String, toDate: String): Single<GetDiffDateInformation> {
+        TODO("Not yet implemented")
+    }
 
+    override fun getDate(): Single<List<String>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAddDate(date: String, addDay: String): Single<GetAddDateInformation> {
+        TODO("Not yet implemented")
+    }
 }

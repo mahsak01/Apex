@@ -149,7 +149,7 @@ class ApexItemAdapter(
 
     fun sort(id: Int) {
         when (id) {
-            0 -> apexItemList.sortBy { getTimeOfDate(it.date) }
+            0 -> apexItemList.sortBy { it.date.toInt() }
             1 -> apexItemList.sortBy { it.price }
             2 -> apexItemList.sortByDescending { it.price }
         }
